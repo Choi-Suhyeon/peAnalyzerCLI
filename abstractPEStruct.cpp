@@ -1,5 +1,12 @@
 #include "abstractPEStruct.h"
 
+const unsigned AbstractPEStruct::kSzOfBYTE_  = 1;
+const unsigned AbstractPEStruct::kSzOfWORD_  = 2;
+const unsigned AbstractPEStruct::kSzOfDWORD_ = 4;
+const unsigned AbstractPEStruct::kSzOfQWORD_ = 8;
+const unsigned AbstractPEStruct::kSzOfAdr32_ = kSzOfDWORD_;
+const unsigned AbstractPEStruct::kSzOfAdr64_ = kSzOfQWORD_;
+
 AbstractPEStruct::AbstractPEStruct(TargetFile & file, unsigned initial_adr, unsigned num_of_elem, unsigned size):
         initial_adr_(initial_adr),
         num_of_elem_(num_of_elem),
@@ -10,6 +17,7 @@ AbstractPEStruct::AbstractPEStruct(TargetFile & file, unsigned initial_adr, unsi
 
 AbstractPEStruct::~AbstractPEStruct() {
     delete [] elem_info_;
+    delete [] sub_bin_;
 }
 
 void AbstractPEStruct::print() {
@@ -26,20 +34,14 @@ void AbstractPEStruct::print() {
         cout << "name : " << elem_info_[i].name << endl;
         cout << "size : " << elem_info_[i].size << endl;
         cout << "desc : " << elem_info_[i].desc << endl;
-        cout << "data : " << file_.getFileContents(adr, elem_info_[i].size) << endl;
+        cout << "data : " << TargetFile::getSubBytes(sub_bin_, adr, elem_info_[i].size) << endl;
         cout << "val : "  << elem_info_[i].val << endl;
         cout << endl;
     }
 }
 
-unsigned     AbstractPEStruct::getSzOfBYTE()         { return kSzOfBYTE; }
-unsigned     AbstractPEStruct::getSzOfWORD()         { return kSzOfWORD; }
-unsigned     AbstractPEStruct::getSzOfDWORD()        { return kSzOfDWORD; }
-unsigned     AbstractPEStruct::getSzOfQWORD()        { return kSzOfQWORD; }
-unsigned     AbstractPEStruct::getSzOfAdr32()        { return kSzOfAdr32; }
-unsigned     AbstractPEStruct::getSzOfAdr64()        { return kSzOfAdr64; }
 unsigned     AbstractPEStruct::getInitialAdr() const { return initial_adr_; }
 unsigned     AbstractPEStruct::getNumOfElem()  const { return num_of_elem_; }
 unsigned     AbstractPEStruct::getSize()       const { return size_; }
-bool         AbstractPEStruct::getIs32bit()          { return file_.check32bit(); }
+bool         AbstractPEStruct::getIs32bit()          { return file_.getIs32bit(); }
 TargetFile & AbstractPEStruct::getFile()             { return file_; }

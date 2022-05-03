@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.21"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "Release",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "peAnalCLI::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-peAnalCLI-Debug-aa8e4ae18690431691ac.json",
+					"jsonFile" : "target-peAnalCLI-Release-d87d82023d6636f7a914.json",
 					"name" : "peAnalCLI",
 					"projectIndex" : 0
 				}
@@ -49,7 +49,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/choisuhyeon/CLionProjects/peAnalCLI/cmake-build-debug",
+		"build" : "/Users/choisuhyeon/CLionProjects/peAnalCLI/cmake-build-release",
 		"source" : "/Users/choisuhyeon/CLionProjects/peAnalCLI"
 	},
 	"version" : 

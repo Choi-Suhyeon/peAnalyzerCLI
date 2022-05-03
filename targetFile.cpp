@@ -1,59 +1,71 @@
 #include "targetFile.h"
 
-TargetFile::TargetFile(const std::string & file_name) {
-     using std::ios;
-     using std::ifstream;
+void TargetFile::getSubBytes(
+              std::byte * const result,
+        const std::byte * const bins,
+        const unsigned          initial_pos,
+        const unsigned          size) {
+    using std::exception;
 
-     tgt_file_ = ifstream(file_name, ios::in | ios::binary);
+    if (!bins) throw exception();
+    memmove(result, bins + initial_pos, size);
 }
 
-TargetFile::TargetFile(TargetFile & file) {
-    using std::move;
-
-    tgt_file_ = move(file.tgt_file_);
-}
-
-TargetFile::~TargetFile() {
-    tgt_file_.close();
-}
-
-void TargetFile::getFileContents(std::byte result[], const unsigned initial_pos, const unsigned size) {
-    using std::ios;
-
-    tgt_file_.seekg(initial_pos, ios::beg);
-    tgt_file_.read(reinterpret_cast<char *>(result), size);
-}
-
-unsigned TargetFile::getFileContents(const unsigned initial_pos, const unsigned size) {
+unsigned TargetFile::getSubBytes(
+        const std::byte * const bins,
+        const unsigned          initial_pos,
+        const unsigned          size) {
     using std::byte;
 
     byte interim[size];
-    getFileContents(interim, initial_pos, size);
+    getSubBytes(interim, bins, initial_pos, size);
 
     return changeBytesToUnsigned(interim, size);
 }
 
-bool TargetFile::check32bit() {
+TargetFile::TargetFile(const std::string & file_name) {
     using std::ios;
     using std::byte;
+    using std::ifstream;
+    using std::exception;
 
-    const unsigned kPosELfanew    = 0x3C;
-    const unsigned kBysOfSzOfOpHd = 2;
-    const unsigned kPosSzOfOpHd   = 0x14;
-    const unsigned kSz32Bit       = 0xE0;
-    const unsigned kSz64bit       = 0xF0;
+    const unsigned kSz32Bit = 0xE0;
+    const unsigned kSz64bit = 0xF0;
 
-    byte e_lfanew[4];
-    getFileContents(e_lfanew, kPosELfanew, sizeof e_lfanew);
+    ifstream tgt_file_(file_name, ios::in | ios::binary);
+    if (!tgt_file_.is_open()) {
+        throw exception();
+    }
 
-    const unsigned kUELfanew = changeBytesToUnsigned(e_lfanew, sizeof e_lfanew);
+    tgt_file_.seekg(0, ios::end);
+    whole_bin_ = new byte[sz_ = tgt_file_.tellg()];
+    tgt_file_.seekg(0, ios::beg);
+    tgt_file_.read((char *)whole_bin_, sz_);
+    tgt_file_.close();
 
-    byte sz_of_op_hd[kBysOfSzOfOpHd];
-    getFileContents(sz_of_op_hd, kUELfanew + kBysOfSzOfOpHd, sizeof sz_of_op_hd);
+    const unsigned kAdrOfSzOfOpHd = changeBytesToUnsigned(whole_bin_ + 0x3C, 4) + 0x14;
+    const unsigned kSzOfOpHd      = changeBytesToUnsigned(whole_bin_ + kAdrOfSzOfOpHd, 2);
 
-    const unsigned kUSzOfOpHd = changeBytesToUnsigned(sz_of_op_hd, sizeof sz_of_op_hd);
-
-    const bool kIs32Or64 = kUSzOfOpHd == kSz32Bit || kUSzOfOpHd == kSz64bit;
-    if (kIs32Or64) return kUSzOfOpHd == kSz32Bit;
-    else           throw  std::exception();
+    if (!((is_32bit_ = kSzOfOpHd == kSz32Bit) || kSzOfOpHd == kSz64bit)) throw exception();
 }
+
+/*
+TargetFile::TargetFile(TargetFile & file) {
+    memmove(whole_bin_, file.whole_bin_, file.sz_);
+    is_32bit_ = file.is_32bit_;
+}
+ */
+
+TargetFile::~TargetFile() {
+    // delete [] whole_bin_;
+}
+
+void TargetFile::getFileContents(std::byte * const result, const unsigned initial_pos, const unsigned size) const {
+    getSubBytes(result, whole_bin_, initial_pos, size);
+}
+
+unsigned TargetFile::getFileContents(const unsigned initial_pos, const unsigned size) const {
+    return getSubBytes(whole_bin_, initial_pos, size);
+}
+
+bool TargetFile::getIs32bit() const { return is_32bit_; }
