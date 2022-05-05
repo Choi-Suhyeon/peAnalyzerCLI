@@ -11,17 +11,12 @@ class AbstractPEStruct {
     unsigned   num_of_elem_ = 0;
     unsigned   size_        = 0;
 
-    union Address_ {
-        std::byte bit32[4];
-        std::byte bit64[8];
-    };
-
     struct ElementDetails_ {
         const char * name;
         const char * desc;
         const char * val;
         unsigned     size;
-        Address_     adr; // initial adr 기준 상대 주소
+        unsigned     adr; // initial adr 기준 상대 주소
     };
 
 protected:
@@ -36,7 +31,7 @@ protected:
     std::byte       * sub_bin_    = nullptr;
 
     explicit AbstractPEStruct(TargetFile &, unsigned, unsigned, unsigned);
-    ~AbstractPEStruct();
+    virtual ~AbstractPEStruct();
 
     virtual void print();
 

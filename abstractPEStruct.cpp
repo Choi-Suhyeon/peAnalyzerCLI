@@ -26,9 +26,7 @@ void AbstractPEStruct::print() {
     using std::endl;
 
     for (unsigned i = 0; i < num_of_elem_; i++) {
-        unsigned adr;
-        if (getIs32bit()) adr = changeBytesToUnsigned(elem_info_[i].adr.bit32, 4);
-        else              adr = changeBytesToUnsigned(elem_info_[i].adr.bit64, 8);
+        unsigned adr = elem_info_[i].adr;
 
         cout << "adr : " << hex << adr << endl;
         cout << "name : " << elem_info_[i].name << endl;
@@ -36,7 +34,6 @@ void AbstractPEStruct::print() {
         cout << "desc : " << elem_info_[i].desc << endl;
         cout << "data : " << TargetFile::getSubBytes(sub_bin_, adr, elem_info_[i].size) << endl;
         cout << "val : "  << elem_info_[i].val << endl;
-        cout << endl;
     }
 }
 

@@ -6,7 +6,6 @@ ImageDosHeader::ImageDosHeader(TargetFile & file, const unsigned initial_adr)
     using std::fill_n;
     using std::memcpy;
 
-    const bool     kIs32bit   = getIs32bit();
     const unsigned kSize      = getSize();
     const unsigned kNumOfElem = getNumOfElem();
     const unsigned kPESig     = 0x5A4D;
@@ -21,23 +20,15 @@ ImageDosHeader::ImageDosHeader(TargetFile & file, const unsigned initial_adr)
 
     const unsigned kFirstValue = TargetFile::getSubBytes(sub_bin_, 0, *sizeArr);
 
-    auto * current_adr = new unsigned(0);
+    auto current_adr = new unsigned(0);
     for (unsigned i = kNumOfElem; i; i--) {
         const unsigned kIdx = kNumOfElem - i;
 
         elem_info_[kIdx].name = kNameArr_[kIdx];
         elem_info_[kIdx].desc = kDescArr_[kIdx];
         elem_info_[kIdx].size = sizeArr[kIdx];
-
-
-        elem_info_[kIdx].val = !kIdx && kFirstValue == kPESig ? "PE file" : "";
-
-        byte adr_bytes[kIs32bit ? kSzOfAdr32_ : kSzOfAdr64_];
-        changeUnsignedToBytes(*current_adr, adr_bytes, sizeof adr_bytes);
-        byte * adr_i = kIs32bit
-                ? elem_info_[kIdx].adr.bit32
-                : elem_info_[kIdx].adr.bit64;
-        memcpy(adr_i, adr_bytes, sizeof adr_bytes);
+        elem_info_[kIdx].adr  = *current_adr;
+        elem_info_[kIdx].val  = !kIdx && kFirstValue == kPESig ? "PE file" : "";
 
         *current_adr += sizeArr[kIdx];
     }
@@ -51,13 +42,12 @@ ImageDosHeader::~ImageDosHeader() {
 
 void ImageDosHeader::print() {
     AbstractPEStruct::print();
+    printf("\n");
 }
 
 unsigned ImageDosHeader::getInitialAdrOfNTHd() {
     const unsigned kLastIdx = getNumOfElem() - 1;
-    const unsigned adr      = getIs32bit()
-            ? changeBytesToUnsigned(elem_info_[kLastIdx].adr.bit32, kSzOfAdr32_)
-            : changeBytesToUnsigned(elem_info_[kLastIdx].adr.bit64, kSzOfAdr64_);
+    const unsigned adr      = elem_info_[kLastIdx].adr;
 
     return getFile().getFileContents(adr, elem_info_[kLastIdx].size);
 }
