@@ -5,13 +5,15 @@
 #import <cstdio>
 
 class ImageDosStub {
-    const unsigned kInitialAdr_ = 0x40;
+    const size_t kInitialAdr_ = 0x40;
 
-    TargetFile file_;
-    unsigned   length_;
+    TargetFile  file_;
+    size_t      length_;
+    std::byte * sub_bin_;
 
 public:
-    ImageDosStub(TargetFile &, unsigned);
+    ImageDosStub(TargetFile &, size_t);
+    ~ImageDosStub();
 
     void print();
 };

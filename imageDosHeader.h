@@ -4,8 +4,8 @@
 #include "abstractPEStruct.h"
 #include "imageDosHeader.h"
 
-class ImageDosHeader: protected AbstractPEStruct {
-    const char * const * const kNameArr_ = new const char *[getNumOfElem()] {
+class ImageDosHeader final: protected AbstractPEStruct {
+    ConstCStringArr kNameArr_ = new ConstCString [getNumOfElem()] {
             "e_magic",    "e_cblp",     "e_cp",     "e_crlc",  "e_cparhdr",
             "e_minalloc", "e_maxalloc", "e_ss",     "e_sp",    "e_csum",
             "e_ip",       "e_cs",       "e_lfarlc", "e_ovno",  "e_res",
@@ -14,32 +14,14 @@ class ImageDosHeader: protected AbstractPEStruct {
             "e_res2",     "e_res2",     "e_res2",   "e_res2",  "e_res2",
             "e_lfanew"
     };
-    const char * const * const kDescArr_ = new const char *[getNumOfElem()] {
-            "MZ Header signature",              "Bytes on last page of file",
-            "Pages in file",                    "Relocations",
-            "Size of header in paragraphs",     "Minimum extra paragraphs needed",
-            "Maximum extra paragraphs needed",  "Initial (relative) SS value",
-            "Initial SP value",                 "Checksum",
-            "Initial IP value",                 "Initial (relative) CS value",
-            "File address of relocation table", "Overlay number",
-            "Reserved words",                   "Reserved words",
-            "Reserved words",                   "Reserved words",
-            "OEM identifier (for e_oeminfo)",   "OEM information; e_oemid specific",
-            "Reserved words",                   "Reserved words",
-            "Reserved words",                   "Reserved words",
-            "Reserved words",                   "Reserved words",
-            "Reserved words",                   "Reserved words",
-            "Reserved words",                   "Reserved words",
-            "Offset to extended header"
-    };
 
 public:
-    explicit ImageDosHeader(TargetFile &, unsigned);
+    explicit ImageDosHeader(TargetFile &, size_t);
     ~ImageDosHeader();
 
     void print() final;
 
-    [[nodiscard]] unsigned getInitialAdrOfNTHd();
+    [[nodiscard]] size_t getInitialAdrOfNTHd();
 };
 
 #endif //PEANALCLI_IMAGEDOSHEADER_H

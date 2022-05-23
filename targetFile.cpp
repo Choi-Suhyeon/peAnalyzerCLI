@@ -3,24 +3,24 @@
 void TargetFile::getSubBytes(
               std::byte * const result,
         const std::byte * const bins,
-        const unsigned          initial_pos,
-        const unsigned          size) {
+        const size_t            initial_pos,
+        const size_t            size) {
     using std::exception;
 
     if (!bins) throw exception();
     memmove(result, bins + initial_pos, size);
 }
 
-unsigned TargetFile::getSubBytes(
+size_t TargetFile::getSubBytes(
         const std::byte * const bins,
-        const unsigned          initial_pos,
-        const unsigned          size) {
+        const size_t          initial_pos,
+        const size_t          size) {
     using std::byte;
 
     byte interim[size];
     getSubBytes(interim, bins, initial_pos, size);
 
-    return changeBytesToUnsigned(interim, size);
+    return bytesToSizeT(interim, size);
 }
 
 TargetFile::TargetFile(const std::string & file_name) {
@@ -28,25 +28,24 @@ TargetFile::TargetFile(const std::string & file_name) {
     using std::byte;
     using std::ifstream;
     using std::exception;
+    using std::streamsize;
 
-    const unsigned kSz32Bit = 0xE0;
-    const unsigned kSz64bit = 0xF0;
+    const size_t kSz32Bit = 0xE0,
+                 kSz64bit = 0xF0;
 
     ifstream tgt_file_(file_name, ios::in | ios::binary);
-    if (!tgt_file_.is_open()) {
-        throw exception();
-    }
+    if (!tgt_file_.is_open()) throw exception();
 
     tgt_file_.seekg(0, ios::end);
     whole_bin_ = new byte[sz_ = tgt_file_.tellg()];
     tgt_file_.seekg(0, ios::beg);
-    tgt_file_.read((char *)whole_bin_, sz_);
+    tgt_file_.read((char *)whole_bin_, streamsize(sz_));
     tgt_file_.close();
 
-    const unsigned kAdrOfSzOfOpHd = changeBytesToUnsigned(whole_bin_ + 0x3C, 4) + 0x14;
-    const unsigned kSzOfOpHd      = changeBytesToUnsigned(whole_bin_ + kAdrOfSzOfOpHd, 2);
+    const size_t kAdrOfSzOfOpHd = bytesToSizeT(whole_bin_ + 0x3C, 4) + 0x14,
+                 kSzOfOpHd      = bytesToSizeT(whole_bin_ + kAdrOfSzOfOpHd, 2);
 
-    if (!((is_32bit_ = kSzOfOpHd == kSz32Bit) || kSzOfOpHd == kSz64bit)) throw exception();
+    if (!((is_32bit_ = !(kSzOfOpHd ^ kSz32Bit)) | !(kSzOfOpHd ^ kSz64bit))) throw exception();
 }
 
 /*
@@ -57,14 +56,14 @@ TargetFile::TargetFile(TargetFile & file) {
  */
 
 TargetFile::~TargetFile() {
-    // delete [] whole_bin_;
+    delete [] whole_bin_;
 }
 
-void TargetFile::getFileContents(std::byte * const result, const unsigned initial_pos, const unsigned size) const {
+void TargetFile::getFileContents(std::byte * const result, const size_t initial_pos, const size_t size) const {
     getSubBytes(result, whole_bin_, initial_pos, size);
 }
 
-unsigned TargetFile::getFileContents(const unsigned initial_pos, const unsigned size) const {
+unsigned TargetFile::getFileContents(const size_t initial_pos, const size_t size) const {
     return getSubBytes(whole_bin_, initial_pos, size);
 }
 

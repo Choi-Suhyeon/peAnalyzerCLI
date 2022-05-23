@@ -1,11 +1,12 @@
 #ifndef PEANALCLI_BYTE_H
 #define PEANALCLI_BYTE_H
 
-#import <algorithm>
-#import <cmath>
+#include <algorithm>
+#include <memory>
+#include <cmath>
 
-void     switchLittleBig(std::byte [], unsigned);
-unsigned changeBytesToUnsigned(const std::byte [], unsigned);
-void     changeUnsignedToBytes(unsigned, std::byte bytes[], unsigned size);
+void   switchLittleBig(std::byte [], size_t);
+size_t bytesToSizeT(const std::byte bytes[], size_t size);
+void   sizeTToBytes(size_t num, std::byte bytes[], size_t size);
 
 #endif //PEANALCLI_BYTE_H

@@ -1,39 +1,30 @@
 #include "byte.h"
 
-void switchLittleBig(std::byte adr[], const unsigned size) {
+void switchLittleBig(std::byte adr[], const size_t size) {
     using std::reverse;
 
     reverse(adr, adr + size);
 }
 
-unsigned changeBytesToUnsigned(const std::byte bytes[], const unsigned size) {
-    using std::byte;
-    using std::to_integer;
-
-    const unsigned kHex         = 0x10;
-    const unsigned kNumOfDigits = 2;
-
-    unsigned result = 0;
-    for (unsigned i = 0; i < size; i++) {
-        result += unsigned(bytes[i]) * unsigned(pow(kHex, kNumOfDigits * i));
+size_t bytesToSizeT(const std::byte bytes[], const size_t size) {
+    size_t result = 0;
+    for (size_t i = 0; i < size; i++) {
+        result += size_t(bytes[i]) * size_t(pow(0x10, i << 1));
     }
 
     return result;
 }
 
-void changeUnsignedToBytes(const unsigned num, std::byte bytes[], const unsigned size) {
+void sizeTToBytes(const size_t num, std::byte bytes[], const size_t size) {
     using std::byte;
-    using std::fill_n;
 
-    const unsigned kBitsOfBy = 0xFF;
+    memset(bytes, 0, size);
 
-    fill_n(bytes, size, byte(0));
+    size_t interim = num;
+    for (size_t i = 0; i < size; i++) {
+        bytes[i] = byte(interim % 0xFF);
 
-    unsigned interim = num;
-    for (unsigned i = 0; i < size; i++) {
-        bytes[i] = byte(interim % kBitsOfBy);
-
-        if ((interim = num / kBitsOfBy) < kBitsOfBy) {
+        if ((interim = num / 0xFF) < 0xFF) {
             bytes[i + 1] = byte(interim);
             break;
         }

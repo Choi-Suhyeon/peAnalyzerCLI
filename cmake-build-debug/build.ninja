@@ -120,6 +120,12 @@ build CMakeFiles/peAnalCLI.dir/imageFileHeader.cpp.o: CXX_COMPILER__peAnalCLI_De
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
   OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
 
+build CMakeFiles/peAnalCLI.dir/imageOptionalHeader32.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/imageOptionalHeader32.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/imageOptionalHeader32.cpp.o.d
+  FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
+  OBJECT_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target peAnalCLI
@@ -128,7 +134,7 @@ build CMakeFiles/peAnalCLI.dir/imageFileHeader.cpp.o: CXX_COMPILER__peAnalCLI_De
 #############################################
 # Link the executable peAnalCLI
 
-build peAnalCLI: CXX_EXECUTABLE_LINKER__peAnalCLI_Debug CMakeFiles/peAnalCLI.dir/main.cpp.o CMakeFiles/peAnalCLI.dir/byte.cpp.o CMakeFiles/peAnalCLI.dir/targetFile.cpp.o CMakeFiles/peAnalCLI.dir/abstractPEStruct.cpp.o CMakeFiles/peAnalCLI.dir/imageDosHeader.cpp.o CMakeFiles/peAnalCLI.dir/imageDosStub.cpp.o CMakeFiles/peAnalCLI.dir/imageNtHeaders.cpp.o CMakeFiles/peAnalCLI.dir/imageFileHeader.cpp.o
+build peAnalCLI: CXX_EXECUTABLE_LINKER__peAnalCLI_Debug CMakeFiles/peAnalCLI.dir/main.cpp.o CMakeFiles/peAnalCLI.dir/byte.cpp.o CMakeFiles/peAnalCLI.dir/targetFile.cpp.o CMakeFiles/peAnalCLI.dir/abstractPEStruct.cpp.o CMakeFiles/peAnalCLI.dir/imageDosHeader.cpp.o CMakeFiles/peAnalCLI.dir/imageDosStub.cpp.o CMakeFiles/peAnalCLI.dir/imageNtHeaders.cpp.o CMakeFiles/peAnalCLI.dir/imageFileHeader.cpp.o CMakeFiles/peAnalCLI.dir/imageOptionalHeader32.cpp.o
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
   POST_BUILD = :

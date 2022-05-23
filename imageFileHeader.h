@@ -3,55 +3,59 @@
 
 #include "abstractPEStruct.h"
 #include "targetFile.h"
-#include <cstring>
 #include <ctime>
 
 class ImageFileHeader final: protected AbstractPEStruct {
-    const unsigned                     kNumOfChar     = 4;
-    const char * const * const         kNameArr       = new const char *[getNumOfElem()] {
+    const size_t    kNumOfChar     = 16,
+                    kNumOfMachine  = 29,
+                    kNumOfElem     = getNumOfElem();
+    const size_t *  kMachineNumArr = new const size_t [kNumOfMachine] {
+        0x0000, 0x014C, 0x0162, 0x0166, 0x0168, 0x0169, 0x0184,
+        0x01A2, 0x01A3, 0x01A4, 0x01A6, 0x01A8, 0x01C0, 0x01C2,
+        0x01C4, 0x01D3, 0x01F0, 0x01F1, 0x0200, 0x0266, 0x0284,
+        0x0366, 0x0466, 0x0520, 0x0CEF, 0x0EBC, 0x8664, 0x9041, 0xC0EE
+    };
+    ConstCStringArr kMachineValArr = new ConstCString [kNumOfMachine] {
+        "IMAGE_FILE_MACHINE_UNKNOWN", "IMAGE_FILE_MACHINE_I386",      "IMAGE_FILE_MACHINE_R3000",
+        "IMAGE_FILE_MACHINE_R4000",   "IMAGE_FILE_MACHINE_R10000",    "IMAGE_FILE_MACHINE_WCEMIPSV2",
+        "IMAGE_FILE_MACHINE_ALPHA",   "IMAGE_FILE_MACHINE_SH3",       "IMAGE_FILE_MACHINE_SH3DSP",
+        "IMAGE_FILE_MACHINE_SH3E",    "IMAGE_FILE_MACHINE_SH4",       "IMAGE_FILE_MACHINE_SH5",
+        "IMAGE_FILE_MACHINE_ARM",     "IMAGE_FILE_MACHINE_THUMB",     "IMAGE_FILE_MACHINE_ARMNT",
+        "IMAGE_FILE_MACHINE_AM33",    "IMAGE_FILE_MACHINE_POWERPC",   "IMAGE_FILE_MACHINE_POWERPCFP",
+        "IMAGE_FILE_MACHINE_IA64",    "IMAGE_FILE_MACHINE_MIPS16",    "IMAGE_FILE_MACHINE_ALPHA64",
+        "IMAGE_FILE_MACHINE_MIPSFPU", "IMAGE_FILE_MACHINE_MIPSFPU16", "IMAGE_FILE_MACHINE_TRICORE",
+        "IMAGE_FILE_MACHINE_CEF",     "IMAGE_FILE_MACHINE_EBC",       "IMAGE_FILE_MACHINE_AMD64",
+        "IMAGE_FILE_MACHINE_M32R",    "IMAGE_FILE_MACHINE_CEE"
+    };
+    ConstCStringArr kNameArr       = new ConstCString [kNumOfElem] {
         "Machine",         "NumberOfSections",     "TimeDataStamp",   "PointerToSymbolTable",
         "NumberOfSymbols", "SizeOfOptionalHeader", "Characteristics"
     };
-    const char * const * const         kDescArr       = new const char *[getNumOfElem()] {
-        "The number that identifies the type of target machine",
-        "The size of the section table",
-        "The number which indicates when the file was created",
-        "The file offset of the COFF symbol table",
-        "The number of entries in the symbol table",
-        "The size of the optional header, which is required for executable files",
-        "The flags that indicate the attributes of the file"
-    };
-    const unsigned * const             kSizeArr       = new const unsigned[getNumOfElem()] {
+    ConstSizeTArr   kSizeArr       = new ConstSizeT [kNumOfElem] {
         kSzOfWORD_, kSzOfWORD_, kSzOfDWORD_, kSzOfDWORD_, kSzOfDWORD_, kSzOfWORD_, kSzOfWORD_
     };
-    const char * const * const * const kDescOfCharArr = new const char * const *[kNumOfChar] {
-        new const char *[4] {
-            "IMAGE_FILE_RELOCS_STRIPPED",    "IMAGE_FILE_EXECUTABLE_IMAGE",
-            "IMAGE_FILE_LINE_NUMS_STRIPPED", "IMAGE_FILE_LOCAL_SYMS_STRIPPED"
-        },
-        new const char *[3] {
-            "IMAGE_FILE_AGGRESIVE_WS_TRIM", "IMAGE_FILE_LARGE_ADDRESS_AWARE",
-            "IMAGE_FILE_BYTES_REVERSED_LO"
-        },
-        new const char *[4] {
+    ConstCStringArr kDescOfCharArr = new ConstCString [kNumOfChar] {
+            "IMAGE_FILE_RELOCS_STRIPPED",         "IMAGE_FILE_EXECUTABLE_IMAGE",
+            "IMAGE_FILE_LINE_NUMS_STRIPPED",      "IMAGE_FILE_LOCAL_SYMS_STRIPPED",
+            "IMAGE_FILE_AGGRESIVE_WS_TRIM",       "IMAGE_FILE_LARGE_ADDRESS_AWARE",
+            "IMAGE_FILE_BYTES_REVERSED_LO",       "",
             "IMAGE_FILE_32BIT_MACHINE",           "IMAGE_FILE_DEBUG_STRIPPED",
-            "IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP", "IMAGE_FILE_NET_RUN_FROM_SWAP"
-        },
-        new const char *[4] {
-            "IMAGE_FILE_SYSTEM",         "IMAGE_FILE_DLL",
-            "IMAGE_FILE_UP_SYSTEM_ONLY", "IMAGE_FILE_BYTES_REVERSED_HI"
-        }
+            "IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP", "IMAGE_FILE_NET_RUN_FROM_SWAP",
+            "IMAGE_FILE_SYSTEM",                  "IMAGE_FILE_DLL",
+            "IMAGE_FILE_UP_SYSTEM_ONLY",          "IMAGE_FILE_BYTES_REVERSED_HI"
     };
 
-    int * charIndices = new int[kNumOfChar];
+    unsigned short data_of_chars;
+
+    void printCharacteristics();
 
 public:
-    explicit ImageFileHeader(TargetFile &, unsigned);
+    explicit ImageFileHeader(TargetFile &, size_t);
     ~ImageFileHeader() final;
 
     void print() final;
 
-    [[nodiscard]] unsigned getInitialAdrOfOpHd();
+    [[nodiscard]] size_t getInitialAdrOfOpHd();
 };
 
 #endif //PEANALCLI_IMAGEFILEHEADER_H

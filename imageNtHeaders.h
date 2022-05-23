@@ -3,13 +3,13 @@
 
 #import "abstractPEStruct.h"
 
-class ImageNtHeaders: protected AbstractPEStruct {
+class ImageNtHeaders final: protected AbstractPEStruct {
 public:
-    explicit ImageNtHeaders(TargetFile &, unsigned);
+    explicit ImageNtHeaders(TargetFile &, size_t);
 
     void print() final;
 
-    [[nodiscard]] unsigned getInitialAdrOfFileHd() const { return getInitialAdr() + getSize(); }
+    [[nodiscard]] size_t getInitialAdrOfFileHd() const;
 };
 
 #endif //PEANALCLI_IMAGENTHEADERS_H
