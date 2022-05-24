@@ -1,8 +1,7 @@
-#include "imageOptionalHeader32.h"
+#include "imageOptionalHeader64.h"
 
-
-ImageOptionalHeader32::ImageOptionalHeader32(TargetFile & file, size_t initial_adr)
-: AbstractPEStruct(file, initial_adr, 30, 0x60) {
+ImageOptionalHeader64::ImageOptionalHeader64(TargetFile & file, size_t initial_adr)
+: AbstractPEStruct(file, initial_adr, 29, 0x70) {
     using std::exception;
 
     for (size_t i = 0, current_adr = 0; i < kNumOfElem; current_adr += kSizeArr[i++]) {
@@ -10,7 +9,7 @@ ImageOptionalHeader32::ImageOptionalHeader32(TargetFile & file, size_t initial_a
                      kData  = TargetFile::getSubBytes(sub_bin_, current_adr, kSize);
         const char * kValue =
                 i == 0  ? getValOfMagic(kData)  :
-                i == 22 ? getValOfSubSys(kData) :
+                i == 21 ? getValOfSubSys(kData) :
                 (char *)"";
 
         elem_info_[i].name = kNameArr[i];
@@ -20,13 +19,13 @@ ImageOptionalHeader32::ImageOptionalHeader32(TargetFile & file, size_t initial_a
     }
 }
 
-ImageOptionalHeader32::~ImageOptionalHeader32() {
+ImageOptionalHeader64::~ImageOptionalHeader64() {
     delete [] kNameArr;
     delete [] kSizeArr;
 }
 
-void ImageOptionalHeader32::print() {
-    printf("[IMAGE OPTIONAL HEADER 32]\n");
+void ImageOptionalHeader64::print() {
+    printf("[IMAGE OPTIONAL HEADER 64]\n");
     AbstractPEStruct::print();
     printf("\n");
 }

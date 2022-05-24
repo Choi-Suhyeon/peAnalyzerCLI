@@ -22,8 +22,8 @@ AbstractPEStruct::~AbstractPEStruct() {
 void AbstractPEStruct::print() {
     const bool   kIs32bit     = getIs32bit();
     const char * kTitleFormat = kIs32bit
-            ? "%8s%s | %17s%13s | %4s | %6s%2s | %8s\n"
-            : "%11s%5s | %17s%13s | %4s | %10s%6s | %8s\n";
+            ? "%8s%s | %17s%13s | %4s | %6s%2s | %10s\n"
+            : "%11s%5s | %17s%13s | %4s | %10s%6s | %10s\n";
     const char * kTableFormat = kIs32bit
             ? "%08zX | %-30s | %4zu | %8zX | %s\n"
             : "%016zX | %-30s | %4zu | %16zX | %s\n";

@@ -9,6 +9,10 @@ ImageDosStub::ImageDosStub(TargetFile & file, const size_t kInitialAdrOfNT)
 }
 
 void ImageDosStub::print() {
+    const size_t k16xLen = length_ % 16
+            ? 16 * (length_ / 16 + 1)
+            : length_;
+
     printf("[IMAGE DOS STUB PROGRAM]\n");
 
     printf("- BYTES -\n");
@@ -17,13 +21,16 @@ void ImageDosStub::print() {
         printf("%02zx%c", kHexNum, ++i % 16 ? ' ' : '\n');
     }
 
-    printf("- ASCII -\n");
-    for (size_t i = 0; i < length_;) {
+    printf("%s- ASCII -\n", length_ % 16 ? "\n" : "");
+    for (size_t i = 0; i < k16xLen;) {
         const auto kUChr       = (unsigned char)sub_bin_[i];
-        const char kHandledChr = 33 <= kUChr && kUChr <= 126 ? char(kUChr) : ' ';
+        const char kHandledChr =
+                i >= length_              ? ' '         :
+                31 < kUChr && kUChr < 127 ? char(kUChr) :
+                '.';
 
-        printf("%s", i % 16 ? "" : "| ");
-        printf("%c%s", kHandledChr, ++i % 16 ? "" : " |\n");
+        if (!(i % 16)) printf("| ");
+        printf("%c%s", kHandledChr, ++i % 16 ? " " : " |\n");
     }
 
     printf("\n");
