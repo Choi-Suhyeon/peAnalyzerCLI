@@ -2,7 +2,6 @@
 #define PEANALCLI_IMAGEDOSHEADER_H
 
 #include "abstractPEStruct.h"
-#include "imageDosHeader.h"
 
 class ImageDosHeader final: protected AbstractPEStruct {
     ConstCStringArr kNameArr_ = new ConstCString [getNumOfElem()] {
@@ -17,7 +16,7 @@ class ImageDosHeader final: protected AbstractPEStruct {
 
 public:
     explicit ImageDosHeader(TargetFile *, size_t);
-    ~ImageDosHeader();
+    ~ImageDosHeader() final;
 
     void print() final;
 

@@ -28,7 +28,7 @@ ImageFileHeader::ImageFileHeader(TargetFile * file, const size_t initial_adr)
     using std::byte;
 
     for (size_t i = 0, current_adr = 0; i < kNumOfElem; current_adr += kSizeArr[i++]) {
-        const size_t kData = TargetFile::getSubBytes(sub_bin_, current_adr, kSizeArr[i]);
+        const size_t kData = getSubBytes(sub_bin_, current_adr, kSizeArr[i]);
 
         if (i == 6) data_of_chars = kData;
 

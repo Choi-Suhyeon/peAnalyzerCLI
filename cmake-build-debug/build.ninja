@@ -78,71 +78,71 @@ build CMakeFiles/peAnalCLI.dir/main.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
   OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
 
-build CMakeFiles/peAnalCLI.dir/byte.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/byte.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/byte.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/file_byte/byte.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/file_byte/byte.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/file_byte/byte.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/file_byte
 
-build CMakeFiles/peAnalCLI.dir/targetFile.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/targetFile.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/targetFile.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/file_byte/targetFile.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/file_byte/targetFile.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/file_byte/targetFile.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/file_byte
 
-build CMakeFiles/peAnalCLI.dir/abstractPEStruct.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/abstractPEStruct.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/abstractPEStruct.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/abstractPEStruct.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/abstractPEStruct.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/abstractPEStruct.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header
 
-build CMakeFiles/peAnalCLI.dir/imageDosHeader.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/imageDosHeader.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/imageDosHeader.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/imageDosHeader.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/imageDosHeader.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/imageDosHeader.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header
 
-build CMakeFiles/peAnalCLI.dir/imageDosStub.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/imageDosStub.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/imageDosStub.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/imageDosStub.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/imageDosStub.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/imageDosStub.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header
 
-build CMakeFiles/peAnalCLI.dir/imageNtHeaders.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/imageNtHeaders.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/imageNtHeaders.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/ntHeaders/imageNtHeaders.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/ntHeaders/imageNtHeaders.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/ntHeaders/imageNtHeaders.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header/ntHeaders
 
-build CMakeFiles/peAnalCLI.dir/imageFileHeader.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/imageFileHeader.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/imageFileHeader.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/ntHeaders/imageFileHeader.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/ntHeaders/imageFileHeader.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/ntHeaders/imageFileHeader.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header/ntHeaders
 
-build CMakeFiles/peAnalCLI.dir/imageOptionalHeader32.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/imageOptionalHeader32.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/imageOptionalHeader32.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/imageOptionalHeader32.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/ntHeaders/opHeader/imageOptionalHeader32.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/imageOptionalHeader32.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader
 
-build CMakeFiles/peAnalCLI.dir/imageOptionalHeader64.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/imageOptionalHeader64.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/imageOptionalHeader64.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/imageOptionalHeader64.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/ntHeaders/opHeader/imageOptionalHeader64.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/imageOptionalHeader64.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader
 
-build CMakeFiles/peAnalCLI.dir/optionalHeaderInterface.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/optionalHeaderInterface.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/optionalHeaderInterface.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/optionalHeaderInterface.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/ntHeaders/opHeader/optionalHeaderInterface.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/optionalHeaderInterface.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader
 
-build CMakeFiles/peAnalCLI.dir/dataDirectory.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/dataDirectory.cpp || cmake_object_order_depends_target_peAnalCLI
-  DEP_FILE = CMakeFiles/peAnalCLI.dir/dataDirectory.cpp.o.d
+build CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/dataDirectory.cpp.o: CXX_COMPILER__peAnalCLI_Debug /Users/choisuhyeon/CLionProjects/peAnalCLI/header/ntHeaders/opHeader/dataDirectory.cpp || cmake_object_order_depends_target_peAnalCLI
+  DEP_FILE = CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/dataDirectory.cpp.o.d
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2 -std=gnu++2a
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
-  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader
 
 
 # =============================================================================
@@ -152,7 +152,7 @@ build CMakeFiles/peAnalCLI.dir/dataDirectory.cpp.o: CXX_COMPILER__peAnalCLI_Debu
 #############################################
 # Link the executable peAnalCLI
 
-build peAnalCLI: CXX_EXECUTABLE_LINKER__peAnalCLI_Debug CMakeFiles/peAnalCLI.dir/main.cpp.o CMakeFiles/peAnalCLI.dir/byte.cpp.o CMakeFiles/peAnalCLI.dir/targetFile.cpp.o CMakeFiles/peAnalCLI.dir/abstractPEStruct.cpp.o CMakeFiles/peAnalCLI.dir/imageDosHeader.cpp.o CMakeFiles/peAnalCLI.dir/imageDosStub.cpp.o CMakeFiles/peAnalCLI.dir/imageNtHeaders.cpp.o CMakeFiles/peAnalCLI.dir/imageFileHeader.cpp.o CMakeFiles/peAnalCLI.dir/imageOptionalHeader32.cpp.o CMakeFiles/peAnalCLI.dir/imageOptionalHeader64.cpp.o CMakeFiles/peAnalCLI.dir/optionalHeaderInterface.cpp.o CMakeFiles/peAnalCLI.dir/dataDirectory.cpp.o
+build peAnalCLI: CXX_EXECUTABLE_LINKER__peAnalCLI_Debug CMakeFiles/peAnalCLI.dir/main.cpp.o CMakeFiles/peAnalCLI.dir/file_byte/byte.cpp.o CMakeFiles/peAnalCLI.dir/file_byte/targetFile.cpp.o CMakeFiles/peAnalCLI.dir/header/abstractPEStruct.cpp.o CMakeFiles/peAnalCLI.dir/header/imageDosHeader.cpp.o CMakeFiles/peAnalCLI.dir/header/imageDosStub.cpp.o CMakeFiles/peAnalCLI.dir/header/ntHeaders/imageNtHeaders.cpp.o CMakeFiles/peAnalCLI.dir/header/ntHeaders/imageFileHeader.cpp.o CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/imageOptionalHeader32.cpp.o CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/imageOptionalHeader64.cpp.o CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/optionalHeaderInterface.cpp.o CMakeFiles/peAnalCLI.dir/header/ntHeaders/opHeader/dataDirectory.cpp.o
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.2
   OBJECT_DIR = CMakeFiles/peAnalCLI.dir
   POST_BUILD = :

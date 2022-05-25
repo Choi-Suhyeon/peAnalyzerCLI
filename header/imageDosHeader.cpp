@@ -14,7 +14,7 @@ ImageDosHeader::ImageDosHeader(TargetFile * file, const size_t initial_adr)
     fill_n(sizeArr, kLastIdx, kSzOfWORD_);
     sizeArr[kLastIdx] = kSzOfDWORD_;
 
-    const size_t kFirstValue = TargetFile::getSubBytes(sub_bin_, 0, *sizeArr);
+    const size_t kFirstValue = getSubBytes(sub_bin_, 0, *sizeArr);
 
     for (size_t i = 0, current_adr = 0; i < kNumOfElem; current_adr += sizeArr[i++]) {
         elem_info_[i].name = kNameArr_[i];

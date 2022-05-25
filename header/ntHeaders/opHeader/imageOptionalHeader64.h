@@ -6,8 +6,8 @@
 #define PEANALCLI_IMAGEOPTIONALHEADER64_H
 
 #include "optionalHeaderInterface.h"
-#include "abstractPEStruct.h"
-#include "targetFile.h"
+#include "../../abstractPEStruct.h"
+#include "../../../file_byte/targetFile.h"
 
 class ImageOptionalHeader64 final: protected AbstractPEStruct, protected OptionalHeaderInterface {
     const size_t    kNumOfElem = getNumOfElem();

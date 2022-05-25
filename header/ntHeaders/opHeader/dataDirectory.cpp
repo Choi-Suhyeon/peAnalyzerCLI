@@ -1,7 +1,3 @@
-//
-// Created by 최수현 on 2022/05/24.
-//
-
 #include "dataDirectory.h"
 
 DataDirectory::DataDirectory(TargetFile * file, size_t initial_adr)

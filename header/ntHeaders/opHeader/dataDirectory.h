@@ -1,11 +1,7 @@
-//
-// Created by 최수현 on 2022/05/24.
-//
-
 #ifndef PEANALCLI_DATADIRECTORY_H
 #define PEANALCLI_DATADIRECTORY_H
 
-#include "abstractPEStruct.h"
+#include "../../abstractPEStruct.h"
 
 class DataDirectory final: protected AbstractPEStruct {
     const size_t    kNumOfVal = getNumOfElem() / 2 - 1;

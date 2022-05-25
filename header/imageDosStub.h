@@ -1,8 +1,7 @@
 #ifndef PEANALCLI_IMAGEDOSSTUB_H
 #define PEANALCLI_IMAGEDOSSTUB_H
 
-#import "targetFile.h"
-#import <cstdio>
+#import "../file_byte/targetFile.h"
 
 class ImageDosStub {
     const size_t kInitialAdr_ = 0x40;

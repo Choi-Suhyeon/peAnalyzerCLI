@@ -33,7 +33,7 @@ void AbstractPEStruct::print() {
     for (size_t i = 0; i < num_of_elem_; i++) {
         const size_t kAdr  = elem_info_[i].adr,
                      kSize = elem_info_[i].size,
-                     kData = TargetFile::getSubBytes(sub_bin_, kAdr, kSize);
+                     kData = getSubBytes(sub_bin_, kAdr, kSize);
 
         printf(kTableFormat, kAdr, elem_info_[i].name, kSize, kData, elem_info_[i].val);
     }

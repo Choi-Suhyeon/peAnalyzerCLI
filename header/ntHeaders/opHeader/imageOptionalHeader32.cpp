@@ -7,7 +7,7 @@ ImageOptionalHeader32::ImageOptionalHeader32(TargetFile * file, size_t initial_a
 
     for (size_t i = 0, current_adr = 0; i < kNumOfElem; current_adr += kSizeArr[i++]) {
         const size_t kSize  = kSizeArr[i],
-                     kData  = TargetFile::getSubBytes(sub_bin_, current_adr, kSize);
+                     kData  = getSubBytes(sub_bin_, current_adr, kSize);
         const char * kValue =
                 i == 0  ? getValOfMagic(kData)  :
                 i == 22 ? getValOfSubSys(kData) :

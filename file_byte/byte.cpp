@@ -30,3 +30,26 @@ void sizeTToBytes(const size_t num, std::byte bytes[], const size_t size) {
         }
     }
 }
+
+void getSubBytes(
+        std::byte * const result,
+        const std::byte * const bins,
+        const size_t            initial_pos,
+        const size_t            size) {
+    using std::exception;
+
+    if (!bins) throw exception();
+    memmove(result, bins + initial_pos, size);
+}
+
+size_t getSubBytes(
+        const std::byte * const bins,
+        const size_t          initial_pos,
+        const size_t          size) {
+    using std::byte;
+
+    byte interim[size];
+    getSubBytes(interim, bins, initial_pos, size);
+
+    return bytesToSizeT(interim, size);
+}

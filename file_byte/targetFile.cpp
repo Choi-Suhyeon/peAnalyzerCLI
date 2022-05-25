@@ -1,28 +1,5 @@
 #include "targetFile.h"
 
-void TargetFile::getSubBytes(
-              std::byte * const result,
-        const std::byte * const bins,
-        const size_t            initial_pos,
-        const size_t            size) {
-    using std::exception;
-
-    if (!bins) throw exception();
-    memmove(result, bins + initial_pos, size);
-}
-
-size_t TargetFile::getSubBytes(
-        const std::byte * const bins,
-        const size_t          initial_pos,
-        const size_t          size) {
-    using std::byte;
-
-    byte interim[size];
-    getSubBytes(interim, bins, initial_pos, size);
-
-    return bytesToSizeT(interim, size);
-}
-
 TargetFile::TargetFile(const std::string & file_name) {
     using std::ios;
     using std::byte;
@@ -47,13 +24,6 @@ TargetFile::TargetFile(const std::string & file_name) {
 
     if (!((is_32bit_ = !(kSzOfOpHd ^ kSz32Bit)) | !(kSzOfOpHd ^ kSz64bit))) throw exception();
 }
-
-/*
-TargetFile::TargetFile(TargetFile & file) {
-    memmove(whole_bin_, file.whole_bin_, file.sz_);
-    is_32bit_ = file.is_32bit_;
-}
- */
 
 TargetFile::~TargetFile() {
     delete [] whole_bin_;

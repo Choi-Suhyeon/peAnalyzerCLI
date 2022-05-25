@@ -139,122 +139,122 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "byte.cpp",
+			"path" : "file_byte/byte.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "byte.h",
+			"path" : "file_byte/byte.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "targetFile.cpp",
+			"path" : "file_byte/targetFile.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "targetFile.h",
+			"path" : "file_byte/targetFile.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "abstractPEStruct.cpp",
+			"path" : "header/abstractPEStruct.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "abstractPEStruct.h",
+			"path" : "header/abstractPEStruct.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "imageDosHeader.cpp",
+			"path" : "header/imageDosHeader.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "imageDosHeader.h",
+			"path" : "header/imageDosHeader.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "imageDosStub.cpp",
+			"path" : "header/imageDosStub.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "imageDosStub.h",
+			"path" : "header/imageDosStub.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "imageNtHeaders.cpp",
+			"path" : "header/ntHeaders/imageNtHeaders.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "imageNtHeaders.h",
+			"path" : "header/ntHeaders/imageNtHeaders.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "imageFileHeader.cpp",
+			"path" : "header/ntHeaders/imageFileHeader.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "imageFileHeader.h",
+			"path" : "header/ntHeaders/imageFileHeader.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "imageOptionalHeader32.cpp",
+			"path" : "header/ntHeaders/opHeader/imageOptionalHeader32.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "imageOptionalHeader32.h",
+			"path" : "header/ntHeaders/opHeader/imageOptionalHeader32.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "imageOptionalHeader64.cpp",
+			"path" : "header/ntHeaders/opHeader/imageOptionalHeader64.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "imageOptionalHeader64.h",
+			"path" : "header/ntHeaders/opHeader/imageOptionalHeader64.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "optionalHeaderInterface.cpp",
+			"path" : "header/ntHeaders/opHeader/optionalHeaderInterface.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "optionalHeaderInterface.h",
+			"path" : "header/ntHeaders/opHeader/optionalHeaderInterface.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "dataDirectory.cpp",
+			"path" : "header/ntHeaders/opHeader/dataDirectory.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "dataDirectory.h",
+			"path" : "header/ntHeaders/opHeader/dataDirectory.h",
 			"sourceGroupIndex" : 1
 		}
 	],

@@ -1,8 +1,7 @@
 #ifndef PEANALCLI_ABSTRACTPESTRUCT_H
 #define PEANALCLI_ABSTRACTPESTRUCT_H
 
-#include "targetFile.h"
-#include "abstractPEStruct.h"
+#include "../file_byte/targetFile.h"
 
 using ConstCString    = const char *;
 using ConstCStringArr = ConstCString const * const;

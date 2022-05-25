@@ -1,10 +1,10 @@
-#include "imageDosHeader.h"
-#include "imageNtHeaders.h"
-#include "imageFileHeader.h"
-#include "imageOptionalHeader32.h"
-#include "imageOptionalHeader64.h"
-#include "dataDirectory.h"
-#include "imageDosStub.h"
+#include "header/imageDosHeader.h"
+#include "header/ntHeaders/imageNtHeaders.h"
+#include "header/ntHeaders/imageFileHeader.h"
+#include "header/ntHeaders/opHeader/imageOptionalHeader32.h"
+#include "header/ntHeaders/opHeader/imageOptionalHeader64.h"
+#include "header/ntHeaders/opHeader/dataDirectory.h"
+#include "header/imageDosStub.h"
 
 int main() {
     char x86file[] = "/Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/PEview.exe";
@@ -25,12 +25,7 @@ int main() {
     ifh.print();
     ioh.print();
     idd.print();
-    /*
-    delete ioh;
-    delete ifh;
-    delete inh;
-    delete ids;
-    delete idh;*/
+    // header ntHeaders opHeader
     return 0;
 }
 

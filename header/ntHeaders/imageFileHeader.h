@@ -1,8 +1,8 @@
 #ifndef PEANALCLI_IMAGEFILEHEADER_H
 #define PEANALCLI_IMAGEFILEHEADER_H
 
-#include "abstractPEStruct.h"
-#include "targetFile.h"
+#include "../abstractPEStruct.h"
+#include "../../file_byte/targetFile.h"
 #include <ctime>
 
 class ImageFileHeader final: protected AbstractPEStruct {
