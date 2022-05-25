@@ -1,11 +1,11 @@
 #include "imageDosStub.h"
 
-ImageDosStub::ImageDosStub(TargetFile & file, const size_t kInitialAdrOfNT)
+ImageDosStub::ImageDosStub(TargetFile * file, const size_t kInitialAdrOfNT)
 : file_(file), length_(kInitialAdrOfNT - kInitialAdr_) {
     using std::byte;
 
     sub_bin_ = new byte[length_];
-    file_.getFileContents(sub_bin_, kInitialAdr_, length_);
+    file_->getFileContents(sub_bin_, kInitialAdr_, length_);
 }
 
 void ImageDosStub::print() {

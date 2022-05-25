@@ -50,7 +50,7 @@ class ImageFileHeader final: protected AbstractPEStruct {
     void printCharacteristics();
 
 public:
-    explicit ImageFileHeader(TargetFile &, size_t);
+    explicit ImageFileHeader(TargetFile *, size_t);
     ~ImageFileHeader() final;
 
     void print() final;

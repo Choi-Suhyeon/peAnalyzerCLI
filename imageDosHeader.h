@@ -16,7 +16,7 @@ class ImageDosHeader final: protected AbstractPEStruct {
     };
 
 public:
-    explicit ImageDosHeader(TargetFile &, size_t);
+    explicit ImageDosHeader(TargetFile *, size_t);
     ~ImageDosHeader();
 
     void print() final;

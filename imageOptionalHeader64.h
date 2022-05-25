@@ -33,10 +33,12 @@ class ImageOptionalHeader64 final: protected AbstractPEStruct, protected Optiona
     };
 
 public:
-    explicit ImageOptionalHeader64(TargetFile &, size_t);
+    explicit ImageOptionalHeader64(TargetFile *, size_t);
     ~ImageOptionalHeader64() final;
 
     void print() final;
+
+    [[nodiscard]] size_t getInitialAdrOfDataDir() const;
 };
 
 

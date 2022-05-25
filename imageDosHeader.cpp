@@ -1,6 +1,6 @@
 #include "imageDosHeader.h"
 
-ImageDosHeader::ImageDosHeader(TargetFile & file, const size_t initial_adr)
+ImageDosHeader::ImageDosHeader(TargetFile * file, const size_t initial_adr)
 : AbstractPEStruct(file, initial_adr, 31, 0x40) {
     using std::byte;
     using std::fill_n;
@@ -39,5 +39,5 @@ size_t ImageDosHeader::getInitialAdrOfNTHd() {
                  kAdrLastElem  = elem_info_[kLastIdx].adr,
                  kSizeLastElem = elem_info_[kLastIdx].size;
 
-    return getFile().getFileContents(kAdrLastElem, kSizeLastElem);
+    return getFile()->getFileContents(kAdrLastElem, kSizeLastElem);
 }

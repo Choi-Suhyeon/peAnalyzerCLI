@@ -23,7 +23,7 @@ void ImageFileHeader::printCharacteristics() {
     }
 }
 
-ImageFileHeader::ImageFileHeader(TargetFile & file, const size_t initial_adr)
+ImageFileHeader::ImageFileHeader(TargetFile * file, const size_t initial_adr)
 : AbstractPEStruct(file, initial_adr, 7, 0x14) {
     using std::byte;
 

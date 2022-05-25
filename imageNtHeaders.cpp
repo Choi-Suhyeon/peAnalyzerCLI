@@ -1,6 +1,6 @@
 #include "imageNtHeaders.h"
 
-ImageNtHeaders::ImageNtHeaders(TargetFile & file, const size_t initial_adr)
+ImageNtHeaders::ImageNtHeaders(TargetFile * file, const size_t initial_adr)
 : AbstractPEStruct(file, initial_adr, 1, kSzOfDWORD_) {
     using std::byte;
     using std::fill_n;

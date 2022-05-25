@@ -10,7 +10,7 @@ using ConstSizeT      = const size_t;
 using ConstSizeTArr   = ConstSizeT * const;
 
 class AbstractPEStruct {
-    TargetFile file_;
+    TargetFile * file_ = nullptr;
     size_t   initial_adr_ = 0; // 파일 내에서 절대 주소
     size_t   num_of_elem_ = 0;
     size_t   size_        = 0;
@@ -31,7 +31,7 @@ protected:
     ElementDetails_ * elem_info_  = nullptr;
     std::byte       * sub_bin_    = nullptr;
 
-    explicit AbstractPEStruct(TargetFile &, size_t, size_t, size_t);
+    explicit AbstractPEStruct(TargetFile *, size_t, size_t, size_t);
     virtual ~AbstractPEStruct();
 
     virtual void print();
@@ -40,7 +40,7 @@ protected:
     [[nodiscard]] size_t       getSize()       const;
     [[nodiscard]] size_t       getNumOfElem()  const;
     [[nodiscard]] bool         getIs32bit();
-    [[nodiscard]] TargetFile & getFile();
+    [[nodiscard]] TargetFile * getFile();
 };
 
 #endif //PEANALCLI_ABSTRACTPESTRUCT_H

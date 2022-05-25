@@ -17,7 +17,7 @@ public:
 
     explicit TargetFile(const std::string &);
     // TargetFile(TargetFile &);
-    ~TargetFile();
+    virtual ~TargetFile();
 
                   void     getFileContents(std::byte *, size_t, size_t) const;
     [[nodiscard]] unsigned getFileContents(size_t, size_t) const;

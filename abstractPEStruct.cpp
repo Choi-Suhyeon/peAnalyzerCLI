@@ -5,13 +5,13 @@ const size_t AbstractPEStruct::kSzOfBYTE_  = 1,
              AbstractPEStruct::kSzOfDWORD_ = 4,
              AbstractPEStruct::kSzOfQWORD_ = 8;
 
-AbstractPEStruct::AbstractPEStruct(TargetFile & file, size_t initial_adr, size_t num_of_elem, size_t size)
+AbstractPEStruct::AbstractPEStruct(TargetFile * file, size_t initial_adr, size_t num_of_elem, size_t size)
 : initial_adr_(initial_adr), num_of_elem_(num_of_elem), size_(size), file_(file) {
     using std::byte;
 
     elem_info_ = new ElementDetails_[size_];
     sub_bin_   = new byte[size_];
-    file_.getFileContents(sub_bin_, getInitialAdr(), size_);
+    file_->getFileContents(sub_bin_, getInitialAdr(), size_);
 }
 
 AbstractPEStruct::~AbstractPEStruct() {
@@ -42,5 +42,5 @@ void AbstractPEStruct::print() {
 size_t       AbstractPEStruct::getInitialAdr() const { return initial_adr_; }
 size_t       AbstractPEStruct::getNumOfElem()  const { return num_of_elem_; }
 size_t       AbstractPEStruct::getSize()       const { return size_; }
-bool         AbstractPEStruct::getIs32bit()          { return file_.getIs32bit(); }
-TargetFile & AbstractPEStruct::getFile()             { return file_; }
+bool         AbstractPEStruct::getIs32bit()          { return file_->getIs32bit(); }
+TargetFile * AbstractPEStruct::getFile()             { return file_; }

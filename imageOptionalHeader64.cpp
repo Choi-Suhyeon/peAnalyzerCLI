@@ -1,6 +1,6 @@
 #include "imageOptionalHeader64.h"
 
-ImageOptionalHeader64::ImageOptionalHeader64(TargetFile & file, size_t initial_adr)
+ImageOptionalHeader64::ImageOptionalHeader64(TargetFile * file, size_t initial_adr)
 : AbstractPEStruct(file, initial_adr, 29, 0x70) {
     using std::exception;
 
@@ -28,4 +28,8 @@ void ImageOptionalHeader64::print() {
     printf("[IMAGE OPTIONAL HEADER 64]\n");
     AbstractPEStruct::print();
     printf("\n");
+}
+
+size_t ImageOptionalHeader64::getInitialAdrOfDataDir() const {
+    return getInitialAdr() + getSize();
 }
