@@ -1,57 +1,48 @@
 #include "imageFileHeader.h"
 
-ssize_t findIndex(const size_t * start, const size_t length, const size_t looking_for) {
-    for (ssize_t i = 0; i < length; i++) {
-        if (start[i] == looking_for) return i;
-    }
-
-    return -1;
-}
-
 void delNewLine(char * str) {
     while (*str++);
     if (str[-2] == '\n') str[-2] = '\0';
 }
 
-void ImageFileHeader::printCharacteristics() {
-    unsigned short filter = 1;
+char * getTimeStamp(const size_t kData) {
+    char * result = asctime(gmtime((time_t *) &kData));
+    delNewLine(result);
+    return result;
+}
 
-    for (size_t i = 0; i < kNumOfChar; i++, filter <<= 1) {
+char * ImageFileHeader::getMachineVal(const size_t kData) {
+    const size_t * kEndPos  = kMachineNumArr + kNumOfMachine;
+    const size_t * kElemPos = std::find(kMachineNumArr, kEndPos, kData);
+
+    return (char *)(kElemPos != kEndPos
+            ? kMachineValArr[kElemPos - kMachineNumArr]
+            : "");
+}
+
+void ImageFileHeader::printCharacteristics() const {
+    for (size_t i = 0, filter = 1; i < kNumOfChar; i++, filter <<= 1) {
         if (data_of_chars & filter && i ^ 7) {
-            printf("%s\n", kDescOfCharArr[i]);
+            puts(kDescOfCharArr[i]);
         }
     }
 }
 
-ImageFileHeader::ImageFileHeader(TargetFile * file, const size_t initial_adr)
-: AbstractPEStruct(file, initial_adr, 7, 0x14) {
-    using std::byte;
-
-    for (size_t i = 0, current_adr = 0; i < kNumOfElem; current_adr += kSizeArr[i++]) {
-        const size_t kData = getSubBytes(sub_bin_, current_adr, kSizeArr[i]);
+ImageFileHeader::ImageFileHeader(TargetFile * const kFile, const size_t kInitialAdr)
+: AbstractPEStruct(kFile, kInitialAdr, 7, 0x14) {
+    for (size_t i = 0, adr = 0; i < kNumOfElem; adr += kSizeArr[i++]) {
+        const size_t kData  = getSubBytes(sub_bin_, adr, kSizeArr[i]);
+        const char * kValue =
+                i == 0 ? getMachineVal(kData) :
+                i == 2 ? getTimeStamp(kData)  :
+                (char *)"";
 
         if (i == 6) data_of_chars = kData;
 
-        char *value;
-        switch(i) {
-            case 2:
-                value = asctime(gmtime((time_t *) &kData));
-                delNewLine(value);
-                break;
-            case 0: {
-                const ssize_t kIdx = findIndex(kMachineNumArr, kNumOfMachine, kData);
-                if (kIdx != -1) {
-                    value = (char *)kMachineValArr[kIdx];
-                    break;
-                }
-            }
-            default: value = (char *)"";
-        }
-
         elem_info_[i].name = kNameArr[i];
         elem_info_[i].size = kSizeArr[i];
-        elem_info_[i].adr  = current_adr;
-        elem_info_[i].val  = value;
+        elem_info_[i].adr  = adr;
+        elem_info_[i].val  = kValue;
     }
 }
 
@@ -61,15 +52,17 @@ ImageFileHeader::~ImageFileHeader() {
     delete [] kDescOfCharArr;
 }
 
-void ImageFileHeader::print() {
-    printf("[IMAGE FILE HEADER]\n");
-
+void ImageFileHeader::print() const {
+    puts("[IMAGE FILE HEADER]");
     AbstractPEStruct::print();
     printCharacteristics();
-
-    printf("\n");
+    puts("");
 }
 
-size_t ImageFileHeader::getInitialAdrOfOpHd() {
+size_t ImageFileHeader::getInitialAdrOfOpHd() const {
     return getInitialAdr() + getSize();
+}
+
+size_t ImageFileHeader::getNumberOfSections() const {
+    return getSubBytes(sub_bin_, elem_info_[1].adr, elem_info_[1].size);
 }

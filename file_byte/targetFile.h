@@ -11,11 +11,11 @@ class TargetFile {
     size_t      sz_        = 0;
 
 public:
-    explicit TargetFile(const std::string &);
+    explicit TargetFile(const char *);
     ~TargetFile();
 
                   void     getFileContents(std::byte *, size_t, size_t) const;
-    [[nodiscard]] unsigned getFileContents(size_t, size_t) const;
+    [[nodiscard]] size_t   getFileContents(size_t, size_t) const;
     [[nodiscard]] bool     getIs32bit() const;
 };
 

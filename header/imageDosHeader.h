@@ -18,7 +18,7 @@ public:
     explicit ImageDosHeader(TargetFile *, size_t);
     ~ImageDosHeader() final;
 
-    void print() final;
+    void print() const final;
 
     [[nodiscard]] size_t getInitialAdrOfNTHd();
 };

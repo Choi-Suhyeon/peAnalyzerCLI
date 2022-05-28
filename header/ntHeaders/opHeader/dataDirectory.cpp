@@ -1,7 +1,7 @@
 #include "dataDirectory.h"
 
-DataDirectory::DataDirectory(TargetFile * file, size_t initial_adr)
-: AbstractPEStruct(file, initial_adr, 32, 0x80) {
+DataDirectory::DataDirectory(TargetFile * const kFile, const size_t kInitialAdr)
+: AbstractPEStruct(kFile, kInitialAdr, 32, 0x80) {
     for (size_t i = 0, current_adr = 0; i < getNumOfElem(); i++, current_adr += kSzOfDWORD_) {
         const size_t kIsOdd  = i & 1,
                      kValIdx = i >> 1;
@@ -15,8 +15,16 @@ DataDirectory::DataDirectory(TargetFile * file, size_t initial_adr)
     }
 }
 
-void DataDirectory::print() {
+DataDirectory::~DataDirectory() {
+    delete [] kValArr;
+}
+
+void DataDirectory::print() const {
     puts("[DATA Directory]");
     AbstractPEStruct::print();
     puts("");
+}
+
+size_t DataDirectory::getInitialAdrOfSectionHeader() const {
+    return getInitialAdr() + getSize();
 }

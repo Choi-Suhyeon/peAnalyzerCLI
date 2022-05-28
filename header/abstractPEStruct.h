@@ -2,6 +2,7 @@
 #define PEANALCLI_ABSTRACTPESTRUCT_H
 
 #include "../file_byte/targetFile.h"
+#include <cstring>
 
 using ConstCString    = const char *;
 using ConstCStringArr = ConstCString const * const;
@@ -9,10 +10,11 @@ using ConstSizeT      = const size_t;
 using ConstSizeTArr   = ConstSizeT * const;
 
 class AbstractPEStruct {
-    TargetFile * file_ = nullptr;
-    size_t   initial_adr_ = 0; // 파일 내에서 절대 주소
-    size_t   num_of_elem_ = 0;
-    size_t   size_        = 0;
+    TargetFile * file_        = nullptr;
+    size_t       initial_adr_ = 0,
+                 num_of_elem_ = 0,
+                 size_        = 0;
+    bool         is_32bit_    = false;
 
     struct ElementDetails_ {
         const char * name;
@@ -31,14 +33,16 @@ protected:
     std::byte       * sub_bin_    = nullptr;
 
     explicit AbstractPEStruct(TargetFile *, size_t, size_t, size_t);
+
+protected:
     virtual ~AbstractPEStruct();
 
-    virtual void print();
+    virtual void print() const;
 
     [[nodiscard]] size_t       getInitialAdr() const;
     [[nodiscard]] size_t       getSize()       const;
     [[nodiscard]] size_t       getNumOfElem()  const;
-    [[nodiscard]] bool         getIs32bit();
+    [[nodiscard]] bool         getIs32bit()    const;
     [[nodiscard]] TargetFile * getFile();
 };
 

@@ -36,7 +36,7 @@ public:
     explicit ImageOptionalHeader64(TargetFile *, size_t);
     ~ImageOptionalHeader64() final;
 
-    void print() final;
+    void print() const final;
 
     [[nodiscard]] size_t getInitialAdrOfDataDir() const;
 };

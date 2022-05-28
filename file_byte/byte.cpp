@@ -1,30 +1,30 @@
 #include "byte.h"
 
-void switchLittleBig(std::byte adr[], const size_t size) {
-    using std::reverse;
-
-    reverse(adr, adr + size);
+void switchLittleBig(std::byte * const kAdr, const size_t kSize) {
+    std::reverse(kAdr, kAdr + kSize);
 }
 
-size_t bytesToSizeT(const std::byte bytes[], const size_t size) {
+size_t bytesToSizeT(const std::byte * const kBytes, const size_t kSize) {
     size_t result = 0;
-    for (size_t i = 0; i < size; i++) {
-        result += size_t(bytes[i]) * size_t(pow(0x10, i << 1));
+
+    for (size_t i = 0; i < kSize; i++) {
+        result += size_t(kBytes[i]) * size_t(pow(0x10, i << 1));
     }
 
     return result;
 }
 
-void sizeTToBytes(const size_t num, std::byte bytes[], const size_t size) {
+void sizeTToBytes(const size_t kNum, std::byte bytes[], const size_t kSize) {
     using std::byte;
 
-    memset(bytes, 0, size);
+    size_t interim = kNum;
 
-    size_t interim = num;
-    for (size_t i = 0; i < size; i++) {
+    memset(bytes, 0, kSize);
+
+    for (size_t i = 0; i < kSize; i++) {
         bytes[i] = byte(interim % 0xFF);
 
-        if ((interim = num / 0xFF) < 0xFF) {
+        if ((interim = kNum / 0xFF) < 0xFF) {
             bytes[i + 1] = byte(interim);
             break;
         }
@@ -32,24 +32,20 @@ void sizeTToBytes(const size_t num, std::byte bytes[], const size_t size) {
 }
 
 void getSubBytes(
-        std::byte * const result,
-        const std::byte * const bins,
-        const size_t            initial_pos,
-        const size_t            size) {
-    using std::exception;
-
-    if (!bins) throw exception();
-    memmove(result, bins + initial_pos, size);
+        std::byte * const kResult,
+        const std::byte * const kBins,
+        const size_t            kInitialPos,
+        const size_t            kSize) {
+    if (!kBins) throw std::exception();
+    memmove(kResult, kBins + kInitialPos, kSize);
 }
 
 size_t getSubBytes(
-        const std::byte * const bins,
-        const size_t          initial_pos,
-        const size_t          size) {
-    using std::byte;
+        const std::byte * const kBins,
+        const size_t            kInitialPos,
+        const size_t            kSize) {
+    std::byte interim[kSize];
+    getSubBytes(interim, kBins, kInitialPos, kSize);
 
-    byte interim[size];
-    getSubBytes(interim, bins, initial_pos, size);
-
-    return bytesToSizeT(interim, size);
+    return bytesToSizeT(interim, kSize);
 }

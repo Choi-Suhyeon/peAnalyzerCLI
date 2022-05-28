@@ -32,7 +32,7 @@ public:
     explicit ImageOptionalHeader32(TargetFile *, size_t);
     ~ImageOptionalHeader32() final;
 
-    void print() final;
+    void print() const final;
 
     [[nodiscard]] size_t getInitialAdrOfDataDir() const;
 };

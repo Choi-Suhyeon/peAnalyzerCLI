@@ -15,8 +15,11 @@ class DataDirectory final: protected AbstractPEStruct {
 
 public:
     explicit DataDirectory(TargetFile *, size_t);
+    ~DataDirectory() final;
 
-    void print() final;
+    void print() const final;
+
+    [[nodiscard]] size_t getInitialAdrOfSectionHeader() const;
 };
 
 

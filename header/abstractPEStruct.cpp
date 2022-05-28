@@ -5,13 +5,16 @@ const size_t AbstractPEStruct::kSzOfBYTE_  = 1,
              AbstractPEStruct::kSzOfDWORD_ = 4,
              AbstractPEStruct::kSzOfQWORD_ = 8;
 
-AbstractPEStruct::AbstractPEStruct(TargetFile * file, size_t initial_adr, size_t num_of_elem, size_t size)
-: initial_adr_(initial_adr), num_of_elem_(num_of_elem), size_(size), file_(file) {
-    using std::byte;
-
-    elem_info_ = new ElementDetails_[size_];
-    sub_bin_   = new byte[size_];
-    file_->getFileContents(sub_bin_, getInitialAdr(), size_);
+AbstractPEStruct::AbstractPEStruct(
+        TargetFile * const kFile,
+        const size_t       kInitialAdr,
+        const size_t       kNumOfElem,
+        const size_t       kSize)
+: initial_adr_(kInitialAdr), num_of_elem_(kNumOfElem), size_(kSize), file_(kFile) {
+    elem_info_ = new ElementDetails_[kSize];
+    sub_bin_   = new std::byte[kSize];
+    is_32bit_  = file_->getIs32bit();
+    file_->getFileContents(sub_bin_, getInitialAdr(), kSize);
 }
 
 AbstractPEStruct::~AbstractPEStruct() {
@@ -19,28 +22,39 @@ AbstractPEStruct::~AbstractPEStruct() {
     delete [] sub_bin_;
 }
 
-void AbstractPEStruct::print() {
+void AbstractPEStruct::print() const {
     const bool   kIs32bit     = getIs32bit();
     const char * kTitleFormat = kIs32bit
             ? "%8s%s | %17s%13s | %4s | %6s%2s | %10s\n"
             : "%11s%5s | %17s%13s | %4s | %10s%6s | %10s\n";
     const char * kTableFormat = kIs32bit
-            ? "%08zX | %-30s | %4zu | %8zX | %s\n"
-            : "%016zX | %-30s | %4zu | %16zX | %s\n";
+            ? "%08.8zX | %-30s | %4zu | %8.8s | %s\n"
+            : "%016.16zX | %-30s | %4zu | %16.16s | %s\n";
 
     printf(kTitleFormat, "ADDRESS", "", "NAME", "", "SIZE", "DATA", "", "VALUE");
 
     for (size_t i = 0; i < num_of_elem_; i++) {
-        const size_t kAdr  = elem_info_[i].adr,
-                     kSize = elem_info_[i].size,
-                     kData = getSubBytes(sub_bin_, kAdr, kSize);
+        const size_t kAdr         = elem_info_[i].adr,
+                     kSize        = elem_info_[i].size,
+                     kData        = getSubBytes(sub_bin_, kAdr, kSize),
+                     kSzOfDataStr = kSize * 2;
 
-        printf(kTableFormat, kAdr, elem_info_[i].name, kSize, kData, elem_info_[i].val);
+        char * data_str    = new char [kSzOfDataStr + 1];
+        char * interim_str = new char [kSzOfDataStr + 1];
+
+        std::fill_n(data_str, kSzOfDataStr, '0');
+        sprintf(interim_str, "%zX", kData);
+        strcpy(data_str + kSzOfDataStr - strlen(interim_str), interim_str);
+        delete [] interim_str;
+
+        printf(kTableFormat, kAdr, elem_info_[i].name, kSize, data_str, elem_info_[i].val);
+
+        delete [] data_str;
     }
 }
 
 size_t       AbstractPEStruct::getInitialAdr() const { return initial_adr_; }
 size_t       AbstractPEStruct::getNumOfElem()  const { return num_of_elem_; }
 size_t       AbstractPEStruct::getSize()       const { return size_; }
-bool         AbstractPEStruct::getIs32bit()          { return file_->getIs32bit(); }
+bool         AbstractPEStruct::getIs32bit()    const { return is_32bit_; }
 TargetFile * AbstractPEStruct::getFile()             { return file_; }

@@ -1,7 +1,7 @@
 #include "imageDosHeader.h"
 
-ImageDosHeader::ImageDosHeader(TargetFile * file, const size_t initial_adr)
-: AbstractPEStruct(file, initial_adr, 31, 0x40) {
+ImageDosHeader::ImageDosHeader(TargetFile * const kFile, const size_t kInitialAdr)
+: AbstractPEStruct(kFile, kInitialAdr, 31, 0x40) {
     using std::byte;
     using std::fill_n;
     using std::memcpy;
@@ -16,10 +16,10 @@ ImageDosHeader::ImageDosHeader(TargetFile * file, const size_t initial_adr)
 
     const size_t kFirstValue = getSubBytes(sub_bin_, 0, *sizeArr);
 
-    for (size_t i = 0, current_adr = 0; i < kNumOfElem; current_adr += sizeArr[i++]) {
+    for (size_t i = 0, adr = 0; i < kNumOfElem; adr += sizeArr[i++]) {
         elem_info_[i].name = kNameArr_[i];
         elem_info_[i].size = sizeArr[i];
-        elem_info_[i].adr  = current_adr;
+        elem_info_[i].adr  = adr;
         elem_info_[i].val  = !i && kFirstValue == kPESig ? "PE file" : "";
     }
 }
@@ -28,10 +28,10 @@ ImageDosHeader::~ImageDosHeader() {
     delete [] kNameArr_;
 }
 
-void ImageDosHeader::print() {
-    printf("[IMAGE DOS HEADER]\n");
+void ImageDosHeader::print() const {
+    puts("[IMAGE DOS HEADER]");
     AbstractPEStruct::print();
-    printf("\n");
+    puts("");
 }
 
 size_t ImageDosHeader::getInitialAdrOfNTHd() {

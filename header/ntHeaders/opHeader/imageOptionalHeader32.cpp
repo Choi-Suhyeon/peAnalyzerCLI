@@ -1,10 +1,8 @@
 #include "imageOptionalHeader32.h"
 
 
-ImageOptionalHeader32::ImageOptionalHeader32(TargetFile * file, size_t initial_adr)
-: AbstractPEStruct(file, initial_adr, 30, 0x60) {
-    using std::exception;
-
+ImageOptionalHeader32::ImageOptionalHeader32(TargetFile * const kFile, const size_t kInitialAdr)
+: AbstractPEStruct(kFile, kInitialAdr, 30, 0x60) {
     for (size_t i = 0, current_adr = 0; i < kNumOfElem; current_adr += kSizeArr[i++]) {
         const size_t kSize  = kSizeArr[i],
                      kData  = getSubBytes(sub_bin_, current_adr, kSize);
@@ -25,10 +23,10 @@ ImageOptionalHeader32::~ImageOptionalHeader32() {
     delete [] kSizeArr;
 }
 
-void ImageOptionalHeader32::print() {
-    printf("[IMAGE OPTIONAL HEADER 32]\n");
+void ImageOptionalHeader32::print() const {
+    puts("[IMAGE OPTIONAL HEADER 32]");
     AbstractPEStruct::print();
-    printf("\n");
+    puts("");
 }
 
 size_t ImageOptionalHeader32::getInitialAdrOfDataDir() const {
