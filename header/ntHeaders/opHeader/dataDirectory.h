@@ -4,8 +4,8 @@
 #include "../../abstractPEStruct.h"
 
 class DataDirectory final: protected AbstractPEStruct {
-    const size_t    kNumOfVal = getNumOfElem() / 2 - 1;
-    ConstCStringArr kValArr   = new ConstCString [kNumOfVal] {
+    const size_t    kNumOfVal_ = getNumOfElem() / 2 - 1;
+    ConstCStringArr kValArr_   = new ConstCString [kNumOfVal_] {
         "IMAGE_DIRECTORY_ENTRY_EXPORT",    "IMAGE_DIRECTORY_ENTRY_IMPORT",       "IMAGE_DIRECTORY_ENTRY_RESOURCE",
         "IMAGE_DIRECTORY_ENTRY_EXCEPTION", "IMAGE_DIRECTORY_ENTRY_SECURITY",     "IMAGE_DIRECTORY_ENTRY_BASERELOC",
         "IMAGE_DIRECTORY_ENTRY_DEBUG",     "IMAGE_DIRECTORY_ENTRY_COPYRIGHT",    "IMAGE_DIRECTORY_ENTRY_GLOBALPTR",

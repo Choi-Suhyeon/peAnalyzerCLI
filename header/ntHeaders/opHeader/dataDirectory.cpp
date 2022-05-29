@@ -9,14 +9,14 @@ DataDirectory::DataDirectory(TargetFile * const kFile, const size_t kInitialAdr)
         elem_info_[i].name = kIsOdd ? "Size" : "RVA";
         elem_info_[i].size = kSzOfDWORD_;
         elem_info_[i].adr  = current_adr;
-        elem_info_[i].val  = !(kIsOdd | (kValIdx >= kNumOfVal))
-                ? kValArr[kValIdx]
+        elem_info_[i].val  = !(kIsOdd | (kValIdx >= kNumOfVal_))
+                ? kValArr_[kValIdx]
                 : "";
     }
 }
 
 DataDirectory::~DataDirectory() {
-    delete [] kValArr;
+    delete [] kValArr_;
 }
 
 void DataDirectory::print() const {

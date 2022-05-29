@@ -5,9 +5,9 @@
 #include <cwchar>
 
 class OptionalHeaderInterface {
-    const size_t    kNumSubSys = 17;
-    const char * const * const kMagicArr  = new const char * [2] { "PE32", "PE32+" };
-    const char * const * const kSubSysArr = new const char * [kNumSubSys] {
+    const size_t    kNumSubSys_ = 17;
+    const char * const * const kMagicArr_  = new const char * [2] { "PE32", "PE32+" };
+    const char * const * const kSubSysArr_ = new const char * [kNumSubSys_] {
         "IMAGE_SUBSYSTEM_UNKNOWN",                  "IMAGE_SUBSYSTEM_NATIVE",
         "IMAGE_SUBSYSTEM_WINDOWS_GUI",              "IMAGE_SUBSYSTEM_WINDOWS_CUI",
         "",                                         "IMAGE_SUBSYSTEM_OS2_CUI",

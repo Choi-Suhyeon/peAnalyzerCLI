@@ -6,8 +6,8 @@
 #include "../../../file_byte/targetFile.h"
 
 class ImageOptionalHeader32 final: protected AbstractPEStruct, protected OptionalHeaderInterface {
-    const size_t    kNumOfElem = getNumOfElem();
-    ConstCStringArr kNameArr   = new ConstCString [kNumOfElem] {
+    const size_t    kNumOfElem_ = getNumOfElem();
+    ConstCStringArr kNameArr_   = new ConstCString [kNumOfElem_] {
         "Magic",                        "MajorLinkerVersion",          "MinorLinkerVersion",
         "SizeOfCode",                   "SizeOfInitializedData",       "SizeOfUninitializedData",
         "AddressOfEntryPoint",          "BaseOfCode",                  "BaseOfData",
@@ -19,7 +19,7 @@ class ImageOptionalHeader32 final: protected AbstractPEStruct, protected Optiona
         "SizeOfStackReserve",           "SizeOfStackCommit",           "SizeOfHeapReserve",
         "SizeOfHeapCommit",             "LoaderFlags",                 "NumberOfRvaAndSizes"
     };
-    ConstSizeTArr   kSizeArr   = new ConstSizeT [kNumOfElem] {
+    ConstSizeTArr   kSizeArr_   = new ConstSizeT [kNumOfElem_] {
         kSzOfWORD_,  kSzOfBYTE_,  kSzOfBYTE_,  kSzOfDWORD_, kSzOfDWORD_,
         kSzOfDWORD_, kSzOfDWORD_, kSzOfDWORD_, kSzOfDWORD_, kSzOfDWORD_,
         kSzOfDWORD_, kSzOfDWORD_, kSzOfWORD_,  kSzOfWORD_,  kSzOfWORD_,
