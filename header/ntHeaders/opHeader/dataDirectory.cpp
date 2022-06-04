@@ -28,3 +28,17 @@ void DataDirectory::print() const {
 size_t DataDirectory::getInitialAdrOfSectionHeader() const {
     return getInitialAdr() + getSize();
 }
+
+size_t * DataDirectory::getImportTable() const {
+    auto result = new size_t [2];
+
+    for (size_t i = 0; i < 2; i++) {
+        const size_t kElemIdx = i + 2,
+                     kAdr     = elem_info_[kElemIdx].adr,
+                     kSize    = elem_info_[kElemIdx].size;
+
+        result[i] = getSubBytes(sub_bin_, kAdr, kSize);
+    }
+
+    return result;
+}

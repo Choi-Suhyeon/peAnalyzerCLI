@@ -17,9 +17,10 @@ public:
     explicit DataDirectory(TargetFile *, size_t);
     ~DataDirectory() final;
 
-    void print() const final;
+    void     print() const final;
 
-    [[nodiscard]] size_t getInitialAdrOfSectionHeader() const;
+    [[nodiscard]] size_t   getInitialAdrOfSectionHeader() const;
+    [[nodiscard]] size_t * getImportTable() const;
 };
 
 

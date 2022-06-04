@@ -9,50 +9,97 @@
 
 #include <list>
 
-std::list<ImageSectionHeader> getScnHeaders(TargetFile * file, size_t numOfScn, size_t initial_adr) {
-    auto result = std::list<ImageSectionHeader>();
+// /Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/PEview.exe
+// /Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/chall9.exe
 
-    while (numOfScn--) {
-        result.emplace_back(file, initial_adr);
-        initial_adr = result.back().getNextAdrOfSectionHeader();
+union OpHd {
+    ImageOptionalHeader32 * op32;
+    ImageOptionalHeader64 * op64;
+};
+
+void input(char * result, const int kLen, const char * kPrompt = "") {
+    printf("%s", kPrompt);
+    fgets(result, kLen, stdin);
+    result[strlen(result) - 1] = '\0';
+}
+
+std::list<ImageSectionHeader> * getScnHeaders(TargetFile * file, size_t num_of_scn, size_t initial_adr) {
+    auto result = new std::list<ImageSectionHeader>();
+
+    while (num_of_scn--) {
+        result->emplace_back(file, initial_adr);
+        initial_adr = result->back().getNextAdrOfSectionHeader();
     }
 
     return result;
 }
 
-void printScnHeaders(const std::list<ImageSectionHeader> & kScnHeaders) {
-    for (const ImageSectionHeader & kScnHd : kScnHeaders) kScnHd.print();
+void printScnHeaders(const std::list<ImageSectionHeader> * kScnHeaders) {
+    for (const ImageSectionHeader & kScnHd : *kScnHeaders) kScnHd.print();
 }
 
-int main() {
+int main(int argc, char ** argv) {
     using std::list;
 
-    char x86file[] = "/Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/PEview.exe";
-    char x64file[] = "/Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/chall9.exe";
+    const unsigned kFlNmLen = 200,
+                   kCmdLen  = 10;
 
-    auto tf  = new TargetFile(x86file);
-    auto idh = ImageDosHeader(tf, 0);
-    auto ids = ImageDosStub(tf, idh.getInitialAdrOfNTHd());
-    auto inh = ImageNtHeaders(tf, idh.getInitialAdrOfNTHd());
-    auto ifh = ImageFileHeader(tf, inh.getInitialAdrOfFileHd());
-    auto ioh = ImageOptionalHeader32(tf, ifh.getInitialAdrOfOpHd());
-    auto idd = DataDirectory(tf, ioh.getInitialAdrOfDataDir());
+    char file_name[kFlNmLen] = { 0 };
+    if (argc ^ 1) strcpy(file_name, argv[1]);
+    else          input(file_name, kFlNmLen, "file_name$ ");
+
+    auto tf  = new TargetFile(file_name);
+    auto idh = new ImageDosHeader(tf, 0);
+    auto ids = new ImageDosStub(tf, idh->getInitialAdrOfNTHd());
+    auto inh = new ImageNtHeaders(tf, idh->getInitialAdrOfNTHd());
+    auto ifh = new ImageFileHeader(tf, inh->getInitialAdrOfFileHd());
+
+    const bool kIs32bit = tf->getIs32bit();
+
+    OpHd ioh {};
+    if (kIs32bit) ioh.op32 = new ImageOptionalHeader32(tf, ifh->getInitialAdrOfOpHd());
+    else          ioh.op64 = new ImageOptionalHeader64(tf, ifh->getInitialAdrOfOpHd());
+
+    auto idd     = new DataDirectory(tf, kIs32bit
+            ? ioh.op32->getInitialAdrOfDataDir()
+            : ioh.op64->getInitialAdrOfDataDir());
     auto ish_lst = getScnHeaders(tf,
-                                 ifh.getNumberOfSections(),
-                                 idd.getInitialAdrOfSectionHeader());
-    int is_32bit = tf->getIs32bit();
+                                 ifh->getNumberOfSections(),
+                                 idd->getInitialAdrOfSectionHeader());
 
     delete tf;
 
-    printf("FILE NAME : %s (%d bit)\n\n", x86file, is_32bit ? 32 : 64);
-    idh.print();
-    ids.print();
-    inh.print();
-    ifh.print();
-    ioh.print();
-    idd.print();
-    printScnHeaders(ish_lst);
+    while (true) {
+        char command[kCmdLen] { 0 };
+        input(command, kCmdLen, "parser$ ");
 
-    return 0;
+        if      (!strcmp(command, "dos-hd"))   idh->print();
+        else if (!strcmp(command, "dos-stub")) ids->print();
+        else if (!strcmp(command, "fl-hd"))    ifh->print();
+        else if (!strcmp(command, "sc-hd"))    printScnHeaders(ish_lst);
+        else if (!strcmp(command, "op-hd")) {
+            if (kIs32bit) ioh.op32->print();
+            else          ioh.op64->print();
+            idd->print();
+        }
+        else if (!strcmp(command, "nt-hds")) {
+            inh->print();
+            ifh->print();
+            if (kIs32bit) ioh.op32->print();
+            else          ioh.op64->print();
+            idd->print();
+        }
+        else if (!strcmp(command, "q")) {
+            delete idh; delete ids;
+            delete inh; delete ifh;
+            delete idd; delete ish_lst;
+
+            if (kIs32bit) delete ioh.op32;
+            else          delete ioh.op64;
+
+            return 0;
+        }
+        else printf("Undefined command: \"%s\"\n", command);
+    }
 }
 
