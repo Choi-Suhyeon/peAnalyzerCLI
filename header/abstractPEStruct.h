@@ -2,12 +2,8 @@
 #define PEANALCLI_ABSTRACTPESTRUCT_H
 
 #include "../file_byte/targetFile.h"
+#include "../redefType.h"
 #include <cstring>
-
-using ConstCString    = const char *;
-using ConstCStringArr = ConstCString const * const;
-using ConstSizeT      = const size_t;
-using ConstSizeTArr   = ConstSizeT * const;
 
 class AbstractPEStruct {
     TargetFile * file_        = nullptr;

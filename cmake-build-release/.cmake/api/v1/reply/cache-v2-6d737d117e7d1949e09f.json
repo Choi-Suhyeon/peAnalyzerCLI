@@ -43,7 +43,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "Debug"
+			"value" : "Release"
 		},
 		{
 			"name" : "CMAKE_CACHEFILE_DIR",
@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/choisuhyeon/CLionProjects/peAnalCLI/cmake-build-debug"
+			"value" : "/Users/choisuhyeon/CLionProjects/peAnalCLI2/cmake-build-release"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/choisuhyeon/CLionProjects/peAnalCLI"
+			"value" : "/Users/choisuhyeon/CLionProjects/peAnalCLI2"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -735,7 +735,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "12.2"
+			"value" : ""
 		},
 		{
 			"name" : "CMAKE_OSX_SYSROOT",
@@ -1087,7 +1087,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/choisuhyeon/CLionProjects/peAnalCLI/cmake-build-debug"
+			"value" : "/Users/choisuhyeon/CLionProjects/peAnalCLI2/cmake-build-release"
 		},
 		{
 			"name" : "peAnalCLI_IS_TOP_LEVEL",
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/choisuhyeon/CLionProjects/peAnalCLI"
+			"value" : "/Users/choisuhyeon/CLionProjects/peAnalCLI2"
 		}
 	],
 	"kind" : "cache",

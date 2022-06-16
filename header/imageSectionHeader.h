@@ -43,7 +43,8 @@ public:
 
     void print() const final;
 
-    [[nodiscard]] size_t getNextAdrOfSectionHeader() const;
+    [[nodiscard]] size_t                    getNextAdrOfSectionHeader() const;
+    [[nodiscard]] std::pair<size_t, size_t> getVaPtr2raw() const;
 };
 
 

@@ -53,3 +53,9 @@ void ImageSectionHeader::print() const {
 size_t ImageSectionHeader::getNextAdrOfSectionHeader() const {
     return getInitialAdr() + getSize();
 }
+
+std::pair<size_t, size_t> ImageSectionHeader::getVaPtr2raw() const {
+    size_t va      = getSubBytes(sub_bin_, elem_info_[1].adr, elem_info_[1].size),
+           ptr2raw = getSubBytes(sub_bin_, elem_info_[3].adr, elem_info_[3].size);
+    return std::make_pair(va, ptr2raw);
+}

@@ -42,7 +42,7 @@ rule CXX_EXECUTABLE_LINKER__peAnalCLI_Debug
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/choisuhyeon/CLionProjects/peAnalCLI -B/Users/choisuhyeon/CLionProjects/peAnalCLI/cmake-build-debug
+  command = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/choisuhyeon/CLionProjects/peAnalCLI2 -B/Users/choisuhyeon/CLionProjects/peAnalCLI2/cmake-build-debug
   description = Re-running CMake...
   generator = 1
 

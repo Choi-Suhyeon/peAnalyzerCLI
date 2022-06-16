@@ -130,7 +130,8 @@
 				20,
 				22,
 				24,
-				26
+				26,
+				27
 			]
 		}
 	],
@@ -283,6 +284,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "body/imageImportDescriptor.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "redefType.h",
 			"sourceGroupIndex" : 1
 		}
 	],
