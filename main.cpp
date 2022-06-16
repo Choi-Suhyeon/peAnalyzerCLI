@@ -8,6 +8,7 @@
 #include "header/imageDosStub.h"
 #include "body/imageImportDescriptor.h"
 #include <list>
+#include "redefType.h"
 
 // /Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/PEview.exe
 // /Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/chall9.exe
