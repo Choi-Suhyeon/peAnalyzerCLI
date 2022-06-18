@@ -13,14 +13,14 @@ void ImageSectionHeader::printCharacteristics() const {
     }
 }
 
-ImageSectionHeader::ImageSectionHeader(TargetFile * file, size_t initial_adr)
-: AbstractPEStruct(file, initial_adr, 9, 0x28) {
+ImageSectionHeader::ImageSectionHeader(TargetFile * const kFile, const size_t kInitialAdr)
+: AbstractPEStruct(kFile, kInitialAdr, 9, 0x28) {
     const size_t kLastIdx   = kNumOfElem_ - 1;
 
     auto temp_name = new std::byte [kSzOfName_];
     getSubBytes(temp_name, sub_bin_, 0, kSzOfName_);
 
-    for (size_t i = 0; i < kSzOfName_; i++) name_[i] = char(temp_name[i]);
+    memcpy(name_, temp_name, kSzOfName_);
     name_[kSzOfName_] = '\0';
 
     delete [] temp_name;
@@ -32,12 +32,13 @@ ImageSectionHeader::ImageSectionHeader(TargetFile * file, size_t initial_adr)
         elem_info_[i].val  = "";
     }
 
+    delete [] kNameArr_;
+    delete [] kSizeArr_;
+
     data_of_chars_ = getSubBytes(sub_bin_, elem_info_[kLastIdx].adr, elem_info_[kLastIdx].size);
 }
 
 ImageSectionHeader::~ImageSectionHeader() {
-    delete [] kNameArr_;
-    delete [] kSizeArr_;
     delete [] kCharsNumArr_;
     delete [] kCharsValArr_;
     delete [] name_;

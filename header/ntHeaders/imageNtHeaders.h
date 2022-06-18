@@ -6,7 +6,6 @@
 class ImageNtHeaders final: protected AbstractPEStruct {
 public:
     explicit ImageNtHeaders(TargetFile *, size_t);
-    ~ImageNtHeaders() final;
 
     void print() const final;
 

@@ -8,6 +8,8 @@ using ConstCString    = const char *;
 using ConstCStringArr = ConstCString const * const;
 using ConstSizeT      = const size_t;
 using ConstSizeTArr   = ConstSizeT * const;
+using SizeTPair       = std::pair<size_t, size_t>;
+using SizeTPairList   = std::list<SizeTPair>;
 
 class AbstractPEStruct {
     TargetFile * file_        = nullptr;
@@ -33,8 +35,6 @@ protected:
     std::byte       * sub_bin_    = nullptr;
 
     explicit AbstractPEStruct(TargetFile *, size_t, size_t, size_t);
-
-protected:
     virtual ~AbstractPEStruct();
 
     virtual void print() const;

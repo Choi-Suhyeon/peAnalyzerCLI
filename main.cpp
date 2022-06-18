@@ -1,30 +1,111 @@
+#include "header/imageSectionHeader.h"
 #include "header/imageDosHeader.h"
-#include "header/ntHeaders/imageNtHeaders.h"
+#include "header/imageDosStub.h"
 #include "header/ntHeaders/imageFileHeader.h"
+#include "header/ntHeaders/imageNtHeaders.h"
 #include "header/ntHeaders/opHeader/imageOptionalHeader32.h"
 #include "header/ntHeaders/opHeader/imageOptionalHeader64.h"
 #include "header/ntHeaders/opHeader/dataDirectory.h"
-#include "header/imageSectionHeader.h"
-#include "header/imageDosStub.h"
 #include "body/imageImportDescriptor.h"
-#include <list>
 
-// /Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/PEview.exe
-// /Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/chall9.exe
+using ScnHdList = std::list<ImageSectionHeader>;
+using IIDList   = std::list<ImageImportDescriptor>;
 
 union OpHd {
     ImageOptionalHeader32 * op32;
     ImageOptionalHeader64 * op64;
 };
 
-void input(char * result, const int kLen, const char * kPrompt = "") {
+void            input(char *, int, const char * kPrompt = "");
+ScnHdList *     getScnHeaders(TargetFile *, size_t, size_t);
+SizeTPairList * getLstOfMainInfoOfScn(const ScnHdList *);
+void            printScnHeaders(const ScnHdList *);
+IIDList *       getIIDs(TargetFile *, size_t, size_t, SizeTPairList *);
+void            printIIDs(const IIDList *);
+void            printHelp();
+
+int main(int argc, char ** argv) {
+    using std::list;
+
+    const unsigned kFlNmLen = 200,
+                   kCmdLen  = 10;
+
+    puts(R"(If this is your first time doing this program, put '?' in 'parser$ '.)");
+
+    char file_name[kFlNmLen] = { 0 };
+    if (argc ^ 1) strcpy(file_name, argv[1]);
+    else          input(file_name, kFlNmLen, "file_name$ ");
+
+    const auto kpFile      = new TargetFile(file_name);
+    const auto kpDosHeader = new ImageDosHeader(kpFile, 0);
+    const auto kpDosStub   = new ImageDosStub(kpFile, kpDosHeader->getInitialAdrOfNTHd());
+    const auto kpNtHeaders = new ImageNtHeaders(kpFile, kpDosHeader->getInitialAdrOfNTHd());
+    const auto kpFlHeader  = new ImageFileHeader(kpFile, kpNtHeaders->getInitialAdrOfFileHd());
+
+    const bool kIs32bit    = kpFile->getIs32bit();
+
+    OpHd op_header {};
+    if (kIs32bit) op_header.op32 = new ImageOptionalHeader32(kpFile, kpFlHeader->getInitialAdrOfOpHd());
+    else          op_header.op64 = new ImageOptionalHeader64(kpFile, kpFlHeader->getInitialAdrOfOpHd());
+
+    const auto kpDataDirectory = new DataDirectory(kpFile, kIs32bit
+            ? op_header.op32->getInitialAdrOfDataDir()
+            : op_header.op64->getInitialAdrOfDataDir());
+    const auto kScnHeaders     = getScnHeaders(kpFile,
+                                              kpDataDirectory->getInitialAdrOfSectionHeader(),
+                                              kpFlHeader->getNumberOfSections());
+    const auto kVaPtr2rawLst   = getLstOfMainInfoOfScn(kScnHeaders);
+    const auto kIIDInfo        = kpDataDirectory->getImportTable();
+    const auto kIIDs           = getIIDs(kpFile, kIIDInfo.first, kIIDInfo.second, kVaPtr2rawLst);
+
+    delete kpFile;
+
+    while (true) {
+        char command[kCmdLen] { 0 };
+        input(command, kCmdLen, "parser$ ");
+
+        if      (!strcmp(command, "?"))        printHelp();
+        else if (!strcmp(command, "dos-hd"))   kpDosHeader->print();
+        else if (!strcmp(command, "dos-stub")) kpDosStub->print();
+        else if (!strcmp(command, "fl-hd"))    kpFlHeader->print();
+        else if (!strcmp(command, "data-dir")) kpDataDirectory->print();
+        else if (!strcmp(command, "sc-hd"))    printScnHeaders(kScnHeaders);
+        else if (!strcmp(command, "imp-desc")) printIIDs(kIIDs);
+        else if (!strcmp(command, "op-hd")) {
+            if (kIs32bit) op_header.op32->print();
+            else          op_header.op64->print();
+            kpDataDirectory->print();
+        }
+        else if (!strcmp(command, "nt-hds")) {
+            kpNtHeaders->print();
+            kpFlHeader->print();
+            if (kIs32bit) op_header.op32->print();
+            else          op_header.op64->print();
+            kpDataDirectory->print();
+        }
+        else if (!strcmp(command, "q")) {
+            delete kpDosHeader;     delete kpDosStub;
+            delete kpNtHeaders;     delete kpFlHeader;
+            delete kpDataDirectory; delete kScnHeaders;
+            delete kVaPtr2rawLst;   delete kIIDs;
+
+            if (kIs32bit) delete op_header.op32;
+            else          delete op_header.op64;
+
+            return 0;
+        }
+        else printf("Undefined command: \"%s\"\n", command);
+    }
+}
+
+void input(char * result, const int kLen, const char * kPrompt) {
     printf("%s", kPrompt);
     fgets(result, kLen, stdin);
     result[strlen(result) - 1] = '\0';
 }
 
-std::list<ImageSectionHeader> * getScnHeaders(TargetFile * file, size_t num_of_scn, size_t initial_adr) {
-    auto result = new std::list<ImageSectionHeader>();
+ScnHdList * getScnHeaders(TargetFile * file, size_t initial_adr, size_t num_of_scn) {
+    auto result = new ScnHdList();
 
     while (num_of_scn--) {
         result->emplace_back(file, initial_adr);
@@ -34,24 +115,24 @@ std::list<ImageSectionHeader> * getScnHeaders(TargetFile * file, size_t num_of_s
     return result;
 }
 
-std::list<std::pair<size_t, size_t>> * getLstOfMainInfoOfScn(std::list<ImageSectionHeader> * scn_hds) {
-    auto result = new std::list<std::pair<size_t, size_t>>();
-    for (auto & kScn : *scn_hds) result->push_back(kScn.getVaPtr2raw());
+SizeTPairList * getLstOfMainInfoOfScn(const ScnHdList * kScnHds) {
+    auto result = new SizeTPairList();
+    for (auto & kScn : *kScnHds) result->push_back(kScn.getVaPtr2raw());
 
     return result;
 }
 
-void printScnHeaders(const std::list<ImageSectionHeader> * kScnHeaders) {
-    for (const ImageSectionHeader & kScnHd : *kScnHeaders) kScnHd.print();
+void printScnHeaders(const ScnHdList * kScnHds) {
+    for (const auto & kScnHd : *kScnHds) kScnHd.print();
 }
 
-std::list<ImageImportDescriptor> * getIIDs(
-        TargetFile           * file,
-        size_t                 initial_adr,
-        size_t                 size,
-        std::list<std::pair<size_t, size_t>> * va_ptr2raw_lst) {
-    auto result = new std::list<ImageImportDescriptor>();
-    auto num_of_IID = size / ImageImportDescriptor::StructSize - 1;
+IIDList * getIIDs(
+        TargetFile    * file,
+        size_t          initial_adr,
+        size_t          size,
+        SizeTPairList * va_ptr2raw_lst) {
+    auto result = new IIDList();
+    auto num_of_IID = size / ImageImportDescriptor::StructSize_ - 1;
 
     initial_adr = rvaToRaw(initial_adr, va_ptr2raw_lst);
 
@@ -63,7 +144,7 @@ std::list<ImageImportDescriptor> * getIIDs(
     return result;
 }
 
-void printIIDs(const std::list<ImageImportDescriptor> * kIIDs) {
+void printIIDs(const IIDList * kIIDs) {
     for (auto & kIID : *kIIDs) kIID.print();
 }
 
@@ -85,76 +166,5 @@ void printHelp() {
     puts("q        : Quits this program.");
 }
 
-int main(int argc, char ** argv) {
-    using std::list;
-
-    const unsigned kFlNmLen = 200,
-                   kCmdLen  = 10;
-
-    puts(R"(If this is your first time doing this program, put '?' in 'parser$ '.)");
-
-    char file_name[kFlNmLen] = { 0 };
-    if (argc ^ 1) strcpy(file_name, argv[1]);
-    else          input(file_name, kFlNmLen, "file_name$ ");
-
-    auto tf  = new TargetFile(file_name);
-    auto idh = new ImageDosHeader(tf, 0);
-    auto ids = new ImageDosStub(tf, idh->getInitialAdrOfNTHd());
-    auto inh = new ImageNtHeaders(tf, idh->getInitialAdrOfNTHd());
-    auto ifh = new ImageFileHeader(tf, inh->getInitialAdrOfFileHd());
-
-    const bool kIs32bit = tf->getIs32bit();
-
-    OpHd ioh {};
-    if (kIs32bit) ioh.op32 = new ImageOptionalHeader32(tf, ifh->getInitialAdrOfOpHd());
-    else          ioh.op64 = new ImageOptionalHeader64(tf, ifh->getInitialAdrOfOpHd());
-
-    auto idd     = new DataDirectory(tf, kIs32bit
-            ? ioh.op32->getInitialAdrOfDataDir()
-            : ioh.op64->getInitialAdrOfDataDir());
-    auto ish_lst = getScnHeaders(tf,
-                                 ifh->getNumberOfSections(),
-                                 idd->getInitialAdrOfSectionHeader());
-    auto va_ptr2raw_lst = getLstOfMainInfoOfScn(ish_lst);
-    auto idd_info = idd->getImportTable();
-    auto idd_lst = getIIDs(tf, idd_info.first, idd_info.second, va_ptr2raw_lst);
-
-    delete tf;
-
-    while (true) {
-        char command[kCmdLen] { 0 };
-        input(command, kCmdLen, "parser$ ");
-
-        if      (!strcmp(command, "?"))        printHelp();
-        else if (!strcmp(command, "dos-hd"))   idh->print();
-        else if (!strcmp(command, "dos-stub")) ids->print();
-        else if (!strcmp(command, "fl-hd"))    ifh->print();
-        else if (!strcmp(command, "data-dir")) idd->print();
-        else if (!strcmp(command, "sc-hd"))    printScnHeaders(ish_lst);
-        else if (!strcmp(command, "imp-desc")) printIIDs(idd_lst);
-        else if (!strcmp(command, "op-hd")) {
-            if (kIs32bit) ioh.op32->print();
-            else          ioh.op64->print();
-            idd->print();
-        }
-        else if (!strcmp(command, "nt-hds")) {
-            inh->print();
-            ifh->print();
-            if (kIs32bit) ioh.op32->print();
-            else          ioh.op64->print();
-            idd->print();
-        }
-        else if (!strcmp(command, "q")) {
-            delete idh; delete ids;
-            delete inh; delete ifh;
-            delete idd; delete ish_lst;
-
-            if (kIs32bit) delete ioh.op32;
-            else          delete ioh.op64;
-
-            return 0;
-        }
-        else printf("Undefined command: \"%s\"\n", command);
-    }
-}
-
+// /Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/PEview.exe
+// /Users/choisuhyeon/Desktop/CTFLab/dreamhack 2/chall9.exe

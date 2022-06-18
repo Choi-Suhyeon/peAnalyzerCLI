@@ -22,9 +22,7 @@ ImageDosHeader::ImageDosHeader(TargetFile * const kFile, const size_t kInitialAd
         elem_info_[i].adr  = adr;
         elem_info_[i].val  = !i && kFirstValue == kPESig ? "PE file" : "";
     }
-}
 
-ImageDosHeader::~ImageDosHeader() {
     delete [] kNameArr_;
 }
 

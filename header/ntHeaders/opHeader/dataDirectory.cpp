@@ -2,7 +2,7 @@
 
 DataDirectory::DataDirectory(TargetFile * const kFile, const size_t kInitialAdr)
 : AbstractPEStruct(kFile, kInitialAdr, 32, 0x80) {
-    for (size_t i = 0, current_adr = 0; i < getNumOfElem(); i++, current_adr += kSzOfDWORD_) {
+    for (size_t i = 0, current_adr = 0; i < kNumOfElem_; i++, current_adr += kSzOfDWORD_) {
         const size_t kIsOdd  = i & 1,
                      kValIdx = i >> 1;
 
@@ -13,9 +13,7 @@ DataDirectory::DataDirectory(TargetFile * const kFile, const size_t kInitialAdr)
                 ? kValArr_[kValIdx]
                 : "";
     }
-}
 
-DataDirectory::~DataDirectory() {
     delete [] kValArr_;
 }
 
@@ -29,13 +27,13 @@ size_t DataDirectory::getInitialAdrOfSectionHeader() const {
     return getInitialAdr() + getSize();
 }
 
-std::pair<size_t, size_t> DataDirectory::getImportTable() const {
+SizeTPair DataDirectory::getImportTable() const {
     size_t result[2];
 
     for (size_t i = 0; i < 2; i++) {
-        size_t kIdx = i + 2,
-                kAdr = elem_info_[kIdx].adr,
-                kSz  = elem_info_[kIdx].size;
+        const size_t kIdx = i + 2,
+                     kAdr = elem_info_[kIdx].adr,
+                     kSz  = elem_info_[kIdx].size;
 
         result[i] = getSubBytes(sub_bin_, kAdr, kSz);
     }

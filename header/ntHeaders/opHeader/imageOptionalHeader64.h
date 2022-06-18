@@ -34,7 +34,6 @@ class ImageOptionalHeader64 final: protected AbstractPEStruct, protected Optiona
 
 public:
     explicit ImageOptionalHeader64(TargetFile *, size_t);
-    ~ImageOptionalHeader64() final;
 
     void print() const final;
 

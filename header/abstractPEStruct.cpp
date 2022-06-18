@@ -6,13 +6,13 @@ const size_t AbstractPEStruct::kSzOfBYTE_  = 1,
              AbstractPEStruct::kSzOfQWORD_ = 8;
 
 AbstractPEStruct::AbstractPEStruct(
-        TargetFile * const kFile,
-        const size_t       kInitialAdr,
-        const size_t       kNumOfElem,
-        const size_t       kSize)
+        TargetFile   * const kFile,
+        const size_t         kInitialAdr,
+        const size_t         kNumOfElem,
+        const size_t         kSize)
 : initial_adr_(kInitialAdr), num_of_elem_(kNumOfElem), size_(kSize), file_(kFile) {
-    elem_info_ = new ElementDetails_[kSize];
-    sub_bin_   = new std::byte[kSize];
+    elem_info_ = new ElementDetails_ [kSize];
+    sub_bin_   = new std::byte [kSize];
     is_32bit_  = file_->getIs32bit();
     file_->getFileContents(sub_bin_, getInitialAdr(), kSize);
 }
@@ -34,7 +34,7 @@ void AbstractPEStruct::print() const {
     printf(kTitleFormat, "RVA&RAW", "", "NAME", "", "SIZE", "DATA", "", "VALUE");
 
     for (size_t i = 0; i < num_of_elem_; i++) {
-        const size_t kAdr         = elem_info_[i].adr,
+        const size_t kAdr         = elem_info_[i].adr + initial_adr_,
                      kSize        = elem_info_[i].size,
                      kData        = getSubBytes(sub_bin_, kAdr, kSize),
                      kSzOfDataStr = kSize * 2;

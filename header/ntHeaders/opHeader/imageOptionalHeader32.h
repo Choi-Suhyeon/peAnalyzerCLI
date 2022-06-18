@@ -30,7 +30,6 @@ class ImageOptionalHeader32 final: protected AbstractPEStruct, protected Optiona
 
 public:
     explicit ImageOptionalHeader32(TargetFile *, size_t);
-    ~ImageOptionalHeader32() final;
 
     void print() const final;
 

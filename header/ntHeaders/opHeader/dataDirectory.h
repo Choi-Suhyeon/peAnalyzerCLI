@@ -4,7 +4,8 @@
 #include "../../abstractPEStruct.h"
 
 class DataDirectory final: protected AbstractPEStruct {
-    const size_t    kNumOfVal_ = getNumOfElem() / 2 - 1;
+    const size_t    kNumOfElem_ = getNumOfElem(),
+                    kNumOfVal_ = kNumOfElem_ / 2 - 1;
     ConstCStringArr kValArr_   = new ConstCString [kNumOfVal_] {
         "IMAGE_DIRECTORY_ENTRY_EXPORT",    "IMAGE_DIRECTORY_ENTRY_IMPORT",       "IMAGE_DIRECTORY_ENTRY_RESOURCE",
         "IMAGE_DIRECTORY_ENTRY_EXCEPTION", "IMAGE_DIRECTORY_ENTRY_SECURITY",     "IMAGE_DIRECTORY_ENTRY_BASERELOC",
@@ -15,12 +16,11 @@ class DataDirectory final: protected AbstractPEStruct {
 
 public:
     explicit DataDirectory(TargetFile *, size_t);
-    ~DataDirectory() final;
 
     void     print() const final;
 
-    [[nodiscard]] size_t                    getInitialAdrOfSectionHeader() const;
-    [[nodiscard]] std::pair<size_t, size_t> getImportTable() const;
+    [[nodiscard]] size_t    getInitialAdrOfSectionHeader() const;
+    [[nodiscard]] SizeTPair getImportTable() const;
 };
 
 

@@ -14,7 +14,7 @@ size_t bytesToSizeT(const std::byte * const kBytes, const size_t kSize) {
     return result;
 }
 
-void sizeTToBytes(const size_t kNum, std::byte bytes[], const size_t kSize) {
+void sizeTToBytes(const size_t kNum, std::byte * bytes, const size_t kSize) {
     using std::byte;
 
     size_t interim = kNum;
@@ -32,7 +32,7 @@ void sizeTToBytes(const size_t kNum, std::byte bytes[], const size_t kSize) {
 }
 
 void getSubBytes(
-        std::byte * const kResult,
+        std::byte       * const kResult,
         const std::byte * const kBins,
         const size_t            kInitialPos,
         const size_t            kSize) {

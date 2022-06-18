@@ -30,9 +30,9 @@ TargetFile::~TargetFile() {
 }
 
 void TargetFile::getFileContents(
-        std::byte *  const kResult,
-        const size_t       kInitialPos,
-        const size_t       kSize) const {
+        std::byte    * const kResult,
+        const size_t         kInitialPos,
+        const size_t         kSize) const {
     getSubBytes(kResult, whole_bin_, kInitialPos, kSize);
 }
 

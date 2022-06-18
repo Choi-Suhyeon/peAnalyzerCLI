@@ -15,9 +15,7 @@ ImageOptionalHeader64::ImageOptionalHeader64(TargetFile * const kFile, const siz
         elem_info_[i].adr  = adr;
         elem_info_[i].val  = kValue;
     }
-}
 
-ImageOptionalHeader64::~ImageOptionalHeader64() {
     delete [] kNameArr_;
     delete [] kSizeArr_;
 }

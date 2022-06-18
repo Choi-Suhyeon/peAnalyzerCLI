@@ -44,11 +44,14 @@ ImageFileHeader::ImageFileHeader(TargetFile * const kFile, const size_t kInitial
         elem_info_[i].adr  = adr;
         elem_info_[i].val  = kValue;
     }
+
+    delete [] kNameArr_;
+    delete [] kSizeArr_;
+    delete [] kMachineNumArr_;
+    delete [] kMachineValArr_;
 }
 
 ImageFileHeader::~ImageFileHeader() {
-    delete [] kNameArr_;
-    delete [] kSizeArr_;
     delete [] kDescOfCharArr_;
 }
 

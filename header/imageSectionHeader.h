@@ -32,8 +32,8 @@ class ImageSectionHeader final: protected AbstractPEStruct {
         "IMAGE_SCN_MEM_SHARED",      "IMAGE_SCN_MEM_EXECUTE",          "IMAGE_SCN_MEM_READ",       "IMAGE_SCN_MEM_WRITE"
     };
 
-    char * name_          = new char [kSzOfName_ + 1];
-    size_t data_of_chars_ = 0;
+    char   * name_          = new char [kSzOfName_ + 1];
+    size_t   data_of_chars_ = 0;
 
     void printCharacteristics() const;
 
@@ -43,8 +43,8 @@ public:
 
     void print() const final;
 
-    [[nodiscard]] size_t getNextAdrOfSectionHeader() const;
-    [[nodiscard]] std::pair<size_t, size_t> getVaPtr2raw() const;
+    [[nodiscard]] size_t    getNextAdrOfSectionHeader() const;
+    [[nodiscard]] SizeTPair getVaPtr2raw() const;
 };
 
 
