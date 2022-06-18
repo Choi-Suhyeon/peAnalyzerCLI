@@ -49,3 +49,14 @@ size_t getSubBytes(
 
     return bytesToSizeT(interim, kSize);
 }
+
+size_t rvaToRaw(const size_t kRva, std::list<std::pair<size_t, size_t>> * va_ptr2raw) {
+    std::pair<size_t, size_t> pre_elem = va_ptr2raw->front();
+
+    for (auto & iter : *va_ptr2raw) {
+        if (kRva > pre_elem.first & kRva < iter.first) break;
+        pre_elem = iter;
+    }
+
+    return pre_elem.second + kRva - pre_elem.first;
+}

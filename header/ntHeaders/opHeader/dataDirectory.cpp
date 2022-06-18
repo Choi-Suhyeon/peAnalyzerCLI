@@ -29,16 +29,16 @@ size_t DataDirectory::getInitialAdrOfSectionHeader() const {
     return getInitialAdr() + getSize();
 }
 
-size_t * DataDirectory::getImportTable() const {
-    auto result = new size_t [2];
+std::pair<size_t, size_t> DataDirectory::getImportTable() const {
+    size_t result[2];
 
     for (size_t i = 0; i < 2; i++) {
-        const size_t kElemIdx = i + 2,
-                     kAdr     = elem_info_[kElemIdx].adr,
-                     kSize    = elem_info_[kElemIdx].size;
+        size_t kIdx = i + 2,
+                kAdr = elem_info_[kIdx].adr,
+                kSz  = elem_info_[kIdx].size;
 
-        result[i] = getSubBytes(sub_bin_, kAdr, kSize);
+        result[i] = getSubBytes(sub_bin_, kAdr, kSz);
     }
 
-    return result;
+    return std::make_pair(result[0], result[1]);
 }

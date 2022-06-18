@@ -31,7 +31,7 @@ void AbstractPEStruct::print() const {
             ? "%08.8zX | %-30s | %4zu | %8.8s | %s\n"
             : "%016.16zX | %-30s | %4zu | %16.16s | %s\n";
 
-    printf(kTitleFormat, "ADDRESS", "", "NAME", "", "SIZE", "DATA", "", "VALUE");
+    printf(kTitleFormat, "RVA&RAW", "", "NAME", "", "SIZE", "DATA", "", "VALUE");
 
     for (size_t i = 0; i < num_of_elem_; i++) {
         const size_t kAdr         = elem_info_[i].adr,

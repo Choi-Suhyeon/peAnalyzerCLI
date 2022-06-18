@@ -19,8 +19,8 @@ public:
 
     void     print() const final;
 
-    [[nodiscard]] size_t   getInitialAdrOfSectionHeader() const;
-    [[nodiscard]] size_t * getImportTable() const;
+    [[nodiscard]] size_t                    getInitialAdrOfSectionHeader() const;
+    [[nodiscard]] std::pair<size_t, size_t> getImportTable() const;
 };
 
 
